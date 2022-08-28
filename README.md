@@ -8,6 +8,15 @@
 
 ### Funcional
 
+#### Objetivo do Sistema:
+
+
+#### Principais Features:
+- Criação de conta na plataforma
+- Criação e edição de artigos através de um editor
+- Definir um artigo como público ou privado
+- Navegar pelos artigos públicos mais recentes da plataforma
+- Visualizar e interagir com artigos de outros usuários
 
 ---
 
