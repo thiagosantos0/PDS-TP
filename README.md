@@ -1,6 +1,6 @@
 ### Membros e Papeis
 
-- Matheus Irias - Desenvolvedor Back-end
+- Matheus Alexandre Irias de Oliveira - Desenvolvedor Back-end
 - Thiago Henrique - Desenvolvedor Full Stack
 - João Pedro Macedo Oliveira - Desenvolvedor Full Stack
 
@@ -18,8 +18,8 @@
 - Framework: React
 
 #### Back-end:
-- Linguage: Javascript
+- Linguagem: Javascript
 - Engine: Node.Js
-- Framework: 
+- Framework: Express.Js
 - Banco de Dados:  
 
