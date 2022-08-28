@@ -9,7 +9,7 @@
 ### Funcional
 
 #### Objetivo do Sistema:
-
+Plataforma para criação e compartilhamento de artigos de texto.
 
 #### Principais Features:
 - Criação de conta na plataforma
