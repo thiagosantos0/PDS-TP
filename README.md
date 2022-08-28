@@ -34,5 +34,5 @@ Plataforma para criação e compartilhamento de artigos de texto.
 - Framework: Express.Js
 
 #### Banco de Dados: 
-- A decidir
+- MySQL
 
