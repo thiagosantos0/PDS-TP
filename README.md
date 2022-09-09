@@ -5,6 +5,7 @@
 - Matheus Alexandre Irias de Oliveira - Desenvolvedor Back-end
 - Thiago Henrique - Desenvolvedor Full Stack
 - João Pedro Macedo Oliveira - Desenvolvedor Full Stack
+- Lucas Augusto Araújo Aguiar - Desenvolvedor Full Stack
 
 ---
 
