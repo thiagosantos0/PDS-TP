@@ -3,9 +3,9 @@
 ### Membros e Papeis
 
 - Matheus Alexandre Irias de Oliveira - Desenvolvedor Back-end
-- Thiago Henrique - Desenvolvedor Full Stack
-- João Pedro Macedo Oliveira - Desenvolvedor Full Stack
-- Lucas Augusto Araújo Aguiar - Desenvolvedor Full Stack
+- Thiago Henrique - Desenvolvedor Front-end
+- João Pedro Macedo Oliveira - Desenvolvedor Front-end
+- Lucas Augusto Araújo Aguiar - Desenvolvedor Back-end
 
 ---
 
