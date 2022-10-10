@@ -1,6 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./App"
 
 import Root from "./routes/root.jsx"
 
