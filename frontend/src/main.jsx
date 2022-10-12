@@ -1,19 +1,22 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Provider } from "react-redux";
 
-import Root from "./routes/root.jsx"
-
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom"
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-  },
-])
+// Project imports
+import theme from "./style/theme.js";
+import { store } from "./app/store.js";
+import { router } from "./router.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
-)
+);

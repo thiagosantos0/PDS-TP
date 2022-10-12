@@ -17,13 +17,18 @@ module.exports = {
     },
     "plugins": [
         "react",
-        "prettier"
+        "react-hooks",
+        "prettier",
+        "@emotion"
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "camelcase": "error",
         "spaced-comment": "error",
         "quotes": ["error", "double"],
-        "no-duplicate-imports": "error"
+        "no-duplicate-imports": "error",
+        "react/no-unknown-property": ['error', { ignore: ['css'] }]
     }
 }
