@@ -23,11 +23,12 @@ module.exports = {
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "camelcase": "error",
         "spaced-comment": "error",
-        "quotes": ["error", "double"],
+        "quotes": ["error", "single"],
         "no-duplicate-imports": "error",
         "react/no-unknown-property": ['error', { ignore: ['css'] }]
     }

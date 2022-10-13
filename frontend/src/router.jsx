@@ -1,17 +1,17 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 
-import Layout from "./routes/layout.jsx";
-import ErrorPage from "./routes/errorPage.jsx";
-import Index from "./routes/index.jsx";
-import Auth from "./routes/auth.jsx";
-import UserArticles from "./routes/userArticles.jsx";
-import Editor from "./routes/editor.jsx";
-import PublicArticles from "./routes/publicArticles.jsx";
-import Reader from "./routes/reader.jsx";
+import Layout from './routes/layout.jsx';
+import ErrorPage from './routes/errorPage.jsx';
+import Index from './routes/index.jsx';
+import Auth from './routes/auth.jsx';
+import UserArticles from './routes/userArticles.jsx';
+import Editor from './routes/editor.jsx';
+import PublicArticles from './routes/publicArticles.jsx';
+import Reader from './routes/reader.jsx';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
@@ -20,27 +20,27 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <Index /> },
           {
-            path: "auth/login",
+            path: 'auth/login',
             element: <Auth />,
           },
           {
-            path: "auth/register",
+            path: 'auth/register',
             element: <Auth />,
           },
           {
-            path: "articles",
+            path: 'articles',
             element: <PublicArticles />,
           },
           {
-            path: ":userId/articles",
+            path: ':userId/articles',
             element: <UserArticles />,
           },
           {
-            path: ":userId/:docId/editor",
+            path: ':userId/:docId/editor',
             element: <Editor />,
           },
           {
-            path: ":userId/:docId/reader",
+            path: ':userId/:docId/reader',
             element: <Reader />,
           },
         ],
