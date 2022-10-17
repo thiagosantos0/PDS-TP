@@ -3,7 +3,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from './routes/layout.jsx';
 import ErrorPage from './routes/errorPage.jsx';
 import Index from './routes/index.jsx';
-import Auth from './routes/auth.jsx';
+import Login, { action as loginAction } from './routes/login.jsx';
+import Register, { action as registerAction } from './routes/register.jsx';
 import UserArticles from './routes/userArticles.jsx';
 import Editor from './routes/editor.jsx';
 import PublicArticles from './routes/publicArticles.jsx';
@@ -21,11 +22,13 @@ export const router = createBrowserRouter([
           { index: true, element: <Index /> },
           {
             path: 'auth/login',
-            element: <Auth />,
+            element: <Login />,
+            action: loginAction,
           },
           {
             path: 'auth/register',
-            element: <Auth />,
+            element: <Register />,
+            action: registerAction,
           },
           {
             path: 'articles',
