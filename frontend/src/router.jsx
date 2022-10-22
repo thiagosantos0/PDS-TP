@@ -1,14 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Layout from './routes/layout.jsx';
-import ErrorPage from './routes/errorPage.jsx';
-import Index from './routes/index.jsx';
-import Login, { action as loginAction } from './routes/login.jsx';
-import Register, { action as registerAction } from './routes/register.jsx';
-import UserArticles from './routes/userArticles.jsx';
-import Editor from './routes/editor.jsx';
-import PublicArticles from './routes/publicArticles.jsx';
-import Reader from './routes/reader.jsx';
+import Layout from './routes/Layout.jsx';
+import ErrorPage from './routes/ErrorPage.jsx';
+import Index from './routes/Index.jsx';
+import Login, { action as loginAction } from './routes/Login.jsx';
+import Register, { action as registerAction } from './routes/Register.jsx';
+import UserArticles from './routes/UserArticles.jsx';
+import Editor from './routes/Editor.jsx';
+import PublicArticles from './routes/PublicArticles.jsx';
+import Reader from './routes/Reader.jsx';
 
 export const router = createBrowserRouter([
   {

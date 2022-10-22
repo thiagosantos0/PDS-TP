@@ -7,12 +7,12 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
-import { Form } from 'react-router-dom';
+import { Form, redirect } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 
 const MuiForm = styled(Form)({});
 
-const Login = () => {
+const Register = () => {
   return (
     <Container component='main' maxWidth='xs'>
       <Box
@@ -27,9 +27,19 @@ const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Entrar
+          Cadastrar
         </Typography>
         <MuiForm sx={{ mt: 1 }} method='POST'>
+          <TextField
+            margin='normal'
+            fullWidth
+            id='name'
+            name='name'
+            label='Nome'
+            type='text'
+            autoComplete='name'
+            autoFocus
+          />
           <TextField
             margin='normal'
             required
@@ -38,7 +48,6 @@ const Login = () => {
             name='email'
             label='Email'
             autoComplete='email'
-            autoFocus
           />
           <TextField
             margin='normal'
@@ -56,12 +65,12 @@ const Login = () => {
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
           >
-            Entrar
+            Cadastrar
           </Button>
           <Grid container justifyContent='center'>
             <Grid item>
-              <Link href='/auth/register' variant='body2'>
-                {'Criar conta'}
+              <Link href='/auth/login' variant='body2'>
+                {'Entrar'}
               </Link>
             </Grid>
           </Grid>
@@ -75,6 +84,7 @@ export async function action({ request }) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   console.log(updates);
+  return redirect('/auth/login');
 }
 
-export default Login;
+export default Register;

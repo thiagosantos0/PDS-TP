@@ -10,10 +10,10 @@ import { selectCredentials } from '../features/auth/authSlice.js';
 
 const Layout = () => {
   const credentials = useSelector((state) => selectCredentials(state));
-  const resolved = useResolvedPath('/auth/*');
-  const match = useMatch({ path: resolved.pathname });
+  const authResolved = useResolvedPath('/auth/*');
+  const authMatch = useMatch({ path: authResolved.pathname });
 
-  const navigation = credentials.isLoggedIn ? (
+  const authNavigation = credentials.isLoggedIn ? (
     <Box>{credentials.name}</Box>
   ) : (
     <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -41,18 +41,21 @@ const Layout = () => {
       <AppBar component='nav'>
         <Toolbar
           variant='dense'
-          sx={{ flexDirection: { xs: 'row-reverse', sm: 'row' } }}
+          sx={{
+            flexDirection: { xs: 'row-reverse', sm: 'row' },
+            justifyContent: 'space-between',
+          }}
         >
           <Link
             href='/'
             variant='h5'
             underline='none'
             display={{ xs: 'none', sm: 'block' }}
-            sx={{ flexGrow: 1, color: '#fff', cursor: 'pointer' }}
+            sx={{ color: '#fff', cursor: 'pointer' }}
           >
             CompArtigos
           </Link>
-          {!match && navigation}
+          {!authMatch && authNavigation}
         </Toolbar>
       </AppBar>
       <Box
