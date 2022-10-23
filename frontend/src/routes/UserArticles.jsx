@@ -1,8 +1,34 @@
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-
 import CardsList from '../components/UserArticlesPage/CardsList.jsx';
+
+
+//Getting data from Backend
+async function getArticleData() {
+  let obj;
+  const res = await fetch('http://localhost:3000/getarticles')
+
+  obj = await res.json();
+  return obj;
+}
+
+// Para verificar o funcionamento, basta rodar o banco localmente em 
+// outro terminal. 
+
+// const articles2 = await getArticleData();
+// console.log(articles2)
+// Dados dos artigos obtidos no banco
+// Campos
+//    id:
+//    title:
+//    description:
+//    content:
+//    image:
+//    ID_Author:
+//    updatedAt:
+
+
 
 const articles = [
   {
