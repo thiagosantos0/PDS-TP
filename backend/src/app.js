@@ -3,15 +3,17 @@ const app = express()
 const port = 3000
 const cors = require('cors');
 const sequelize = require('./db/models')
+const bodyParser = require('body-parser')
 
 // const db = require('./db/mysql')
 
 //Rotas
 
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
-var getArticlesRouter = require("./routes/getArticles");
-app.use("/getarticles", getArticlesRouter);
+var articlesRouter = require("./controllers/article-controller");
+app.use("/artigos", articlesRouter);
 
 const usersRouter = require('./controllers/user-controller');
 app.use('/usuarios', usersRouter);

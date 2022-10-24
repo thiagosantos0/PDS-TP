@@ -7,7 +7,7 @@ import CardsList from '../components/UserArticlesPage/CardsList.jsx';
 //Getting data from Backend
 async function getArticleData() {
   let obj;
-  const res = await fetch('http://localhost:3000/getarticles')
+  const res = await fetch('http://localhost:3000/artigos')
 
   obj = await res.json();
   return obj;

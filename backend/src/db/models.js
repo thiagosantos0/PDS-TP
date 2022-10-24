@@ -64,5 +64,8 @@ User.init({
         timestamps: false
 });
 
+User.hasMany(Article, {
+    foreign_key: 'ID_Author'
+})
 
 module.exports = sequelize;

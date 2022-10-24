@@ -6,7 +6,6 @@ async function build(){
 
     //Definindo os autores (Test)
     sequelize.models.User.create({
-        id: 1,
         name: 'Kobayashi',
         email: "teste@gmail.com",
         password: "teste"

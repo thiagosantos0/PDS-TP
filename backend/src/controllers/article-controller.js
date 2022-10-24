@@ -3,12 +3,12 @@ const express = require('express');
 
 const app = express();
 const backdirname = path.dirname(__dirname);
-var getArticlesRouter = express.Router();
+var ArticlesRouter = express.Router();
 
 const sequelize = require(`${backdirname}/db/models`);
 
 app.use(express.static(backdirname))
-getArticlesRouter.get("", async function(req, res, next) {
+ArticlesRouter.get("", async function(req, res, next) {
     let articles = await sequelize.models.Article.findAll();
     let response = {
         articles: []
@@ -17,4 +17,11 @@ getArticlesRouter.get("", async function(req, res, next) {
     res.send(articles);
 });
 
-module.exports = getArticlesRouter;
+ArticlesRouter.get('/artigos/:id', async (req, res) => {
+    const artigos = await sequelize.models.Article.findAll({
+        where: {ID_Author: req.params.id}
+    })
+    res.status(200).json(artigos);   
+})
+
+module.exports = ArticlesRouter;
