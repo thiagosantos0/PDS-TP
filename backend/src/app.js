@@ -1,28 +1,31 @@
 const express = require('express')
+
+const bodyParser = require('body-parser')
+const cors = require('cors');
+
 const app = express()
 const port = 3000
-const cors = require('cors');
-const sequelize = require('./db/models')
-const bodyParser = require('body-parser')
 
-// const db = require('./db/mysql')
+const db = require('./infraestrutura/db/mysql.js')
 
 //Rotas
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
-var articlesRouter = require("./controllers/article-controller");
+
+
+var articlesRouter = require("./adaptadores/controllers/ArticleController");
 app.use("/artigos", articlesRouter);
 
-const usersRouter = require('./controllers/user-controller');
+const usersRouter = require('./adaptadores/controllers/UserController');
 app.use('/usuarios', usersRouter);
 
 app.get('/', async (req, res) => {
-  const users = await sequelize.models.User.findAll()
+  const users = await db.models.User.findAll()
   res.status(200).json(users)
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port ${port}`)
 })
