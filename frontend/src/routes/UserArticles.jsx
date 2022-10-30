@@ -1,89 +1,48 @@
+import { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import CardsList from '../components/UserArticlesPage/CardsList.jsx';
+import { useLoaderData } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-
-//Getting data from Backend
-async function getArticleData() {
-  let obj;
-  const res = await fetch('http://localhost:3000/artigos')
-
-  obj = await res.json();
-  return obj;
-}
-
-// Para verificar o funcionamento, basta rodar o banco localmente em 
-// outro terminal. 
-
-// const articles2 = await getArticleData();
-// console.log(articles2)
-// Dados dos artigos obtidos no banco
-// Campos
-//    id:
-//    title:
-//    description:
-//    content:
-//    image:
-//    ID_Author:
-//    updatedAt:
-
-
-
-const articles = [
-  {
-    id: 0,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png',
-    name: 'React Article',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum non diam eget posuere. Maecenas malesuada vitae turpis id malesuada. Donec ornare nibh a nunc facilisis, non porttitor felis convallis.',
-    updatedAt: '2022-04-25 21:48:56',
-  },
-  {
-    id: 1,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/MySQL_textlogo.svg/2560px-MySQL_textlogo.svg.png',
-    name: 'MySql Article',
-    description:
-      'Suspendisse varius odio eget posuere auctor. Aenean nec purus ipsum. Integer orci tellus, blandit et mauris id, efficitur ornare nunc. Nulla et ex vel odio aliquet tempus. Sed tortor metus, viverra ac enim sit amet, dignissim efficitur tellus.',
-    updatedAt: '2022-10-08 19:06:2',
-  },
-
-  {
-    id: 2,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png',
-    name: 'Express Article',
-    description:
-      'Aliquam viverra sapien sed diam fermentum pellentesque. Nulla maximus enim a turpis sollicitudin lobortis. Praesent ut leo feugiat, tempor libero quis, lacinia libero. Duis nec dapibus nulla.',
-    updatedAt: '2022-06-18 11:50:28',
-  },
-
-  {
-    id: 3,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png',
-    name: 'Node Article',
-    description:
-      'Cras tincidunt lectus quis sem gravida sodales. Donec malesuada erat ut tellus tempus, nec vestibulum odio vulputate.',
-    updatedAt: '2022-09-02 12:08:43',
-  },
-];
+import CardsList from '../components/UserArticlesRoute/CardsList.jsx';
+import EditMetadataModal from '../components/UserArticlesRoute/EditMetadataModal.jsx';
+import DeleteArticleModal from '../components/UserArticlesRoute/DeleteArticleModal.jsx';
+import { closeModal, openModal } from '../features/modal/modalSlice.js';
 
 const UserArticles = () => {
+  const loaderData = useLoaderData();
+  const dispatch = useDispatch();
+
+  // Fecha o modal quando 'loaderData' é atualizado.
+  // (Click no botão 'enviar do modal')
+  useEffect(() => {
+    dispatch(closeModal());
+  }, [dispatch, loaderData]);
+
   const handleAddArticle = () => {
-    console.log('Add article');
+    dispatch(
+      openModal({
+        type: 'create-article',
+        meta: {
+          title: 'Inserir Metadados do Artigo',
+        },
+        data: {},
+      }),
+    );
   };
 
   return (
-    <Box>
+    <Box sx={{ pb: 10 }}>
+      <EditMetadataModal />
+      <DeleteArticleModal />
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
         }}
       >
-        <CardsList articles={articles} />
+        <CardsList articles={loaderData} />
       </Box>
       <Fab
         color='primary'
@@ -96,7 +55,6 @@ const UserArticles = () => {
           right: theme.spacing(3),
 
           [theme.breakpoints.up('md')]: {
-            bottom: theme.spacing(3),
             right: theme.spacing(6),
           },
         })}
@@ -106,5 +64,17 @@ const UserArticles = () => {
     </Box>
   );
 };
+
+export async function action({ request }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  console.log(updates);
+  return { ok: true };
+}
+
+export async function loader() {
+  const res = await fetch('http://localhost:3000/artigos');
+  return await res.json();
+}
 
 export default UserArticles;
