@@ -1,5 +1,7 @@
+import RemirrorEditor from '../components/EditorRoute/RemirrorEditor.jsx';
+
 const Editor = () => {
-  return <div>Criar/Editar Artigo (Editor)</div>;
+  return <RemirrorEditor />;
 };
 
 export default Editor;
