@@ -1,4 +1,4 @@
-const db = require('../../infraestrutura/db/MySql.js');
+const db = require('../db/MySql.js');
 
 
 class ArticleService {

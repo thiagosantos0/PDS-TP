@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express()
 const port = 3000
 
-const db = require('./infraestrutura/db/mysql.js')
+const db = require('./db/MySql.js')
 
 //Rotas
 
