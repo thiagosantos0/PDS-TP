@@ -1,4 +1,4 @@
-const ArticleService = require( "../services/ArticleService.js");
+const ArticleService = require( "../services/ArticleService");
 const Article = require('../../dominio/models/Article.js');
 
 

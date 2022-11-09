@@ -1,4 +1,4 @@
-const db = require('./MySql.js');
+const db = require('../models/index');
 
 async function build(){
     await db.models.User.sync();
