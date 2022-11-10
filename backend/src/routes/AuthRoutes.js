@@ -4,4 +4,4 @@ const { authController } = require("../controllers");
 router.get("/signup", authController.signup);
 router.post("/login", authController.login);
 
-module.exports.article = router;
+module.exports.auth = router;

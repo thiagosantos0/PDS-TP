@@ -1,4 +1,4 @@
-const app = require("./src/config");
+const app = require('./config');
 
 const port = app.get("port");
 
