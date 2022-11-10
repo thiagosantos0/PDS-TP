@@ -2,29 +2,36 @@ const { userRepository } = require("../repositories");
 
 module.exports = {
    getUser: async (requesterDetails) => {
-      const requesterUserId = requesterDetails.id;
+      const userId = requesterDetails.id;
 
-      const user = await userRepository.getById(requesterUserId);
+      const user = await userRepository.getById(userId);
 
       if (!user) {
          throw {
             status: StatusCodes.NOT_FOUND,
-            message: messages.notFound("user")
+            message: "User not found; id = " + userId
          };
       }
 
       return { user };      
    },
+   
+   getAllUsers: async () => {
+      // verify
+      const users = await userRepository.getAll();
+      
+      return { users };      
+   },
 
    updateUser: async (userDetails, requesterDetails) => {
-      const requestUserId = requesterDetails.id;
+      const userId = requesterDetails.id;
 
-      const userToBeUpdated = await userRepository.getById(requestUserId);
+      const userToBeUpdated = await userRepository.getById(userId);
 
       if (!userToBeUpdated) {
          throw {
             status: StatusCodes.NOT_FOUND,
-            message: messages.notFound("user")
+            message: "User not found; id = " + userId
          };
       }
 
@@ -33,20 +40,8 @@ module.exports = {
       return { updatedResponse };
    },
 
-   autodeleteUser: async (confirmationBody, requesterDetails) => {
-      const { password } = confirmationBody;
+   autodeleteUser: async (requesterDetails) => {
       const { id } = requesterDetails;
-
-      const userToBeAutodeleted = await userRepository.getById(id);
-
-      const validPassword = await encryptor.comparePasswords(password, userToBeAutodeleted.password);
-
-      if (!validPassword) {
-         throw {
-            status: StatusCodes.UNAUTHORIZED,
-            message: messages.invalidPassword()
-         }
-      }
 
       const deleteResponse = await userRepository.deleteInstanceById(id);
 

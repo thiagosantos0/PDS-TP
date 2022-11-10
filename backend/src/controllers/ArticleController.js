@@ -1,23 +1,82 @@
-const ArticleService = require( "../services/ArticleService");
-const Article = require('../../dominio/models/Article.js');
+const { StatusCodes } = require("http-status-codes");
+const { articleService } = require("../services");
 
+module.exports = {
+    create: async (req, res) => {
+        try {
+            const createResponse = await articleService.createArticle(req.body);
 
-class ArticleController {
+            return res.status(StatusCodes.OK).json(createResponse);         
+        } catch (error) {
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
+        }
+    },
 
+    getArticle: async (req, res) => {
+        try {
+            const getResponse = await articleService.getArticle(req.body);
 
-    create ( req, res ) {
-        let article = new Article(null, req.title, req.description, req.content, req.image, req.id_author);
+            return res.status(StatusCodes.OK).json(getResponse);         
+        } catch (error) {
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
+        }
+    },
 
-        ArticleService.create(article).then(data => {
-            res.status(200).send(article);
-        })
-        .catch(err =>{
-            res.status(500).send({
-                message : "Err while creating article"
-            });
-        });
-    }
-}
+    getAllArticles: async (req, res) => {
+        try {
+            const getAllResponse = await articleService.getAllArticles();
 
+            return res.status(StatusCodes.OK).json(getAllResponse);         
+        } catch (error) {
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
+        }
+    },
+    
+    getArticleByUser: async (req, res) => {
+        try {
+            const getResponse = await articleService.getArticleByUser(req.body);
 
-module.exports = ArticleController;
+            return res.status(StatusCodes.OK).json(getResponse);         
+        } catch (error) {
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
+        }
+    },
+
+    updateArticle: async (req, res) => {
+        try {
+            const getResponse = await articleService.updateArticle(req.body);
+
+            return res.status(StatusCodes.OK).json(getResponse);         
+        } catch (error) {
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
+        }
+    },
+
+    autodeleteArticle: async (req, res) => {
+        try {
+            const deleteResponse = await articleService.autodeleteArticle(req.body);
+
+            return res.status(StatusCodes.OK).json(deleteResponse);         
+        } catch (error) {
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
+        }
+    },
+};

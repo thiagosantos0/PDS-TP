@@ -1,51 +1,82 @@
-const db = require('../db/MySql.js');
+const { articleRepository } = require("../repositories");
 
+module.exports = {
+    createArticle: async (articleDetails) => {
+        const {
+            userId,
+            title,
+            description,
+            content,
+            image
+        } = articleDetails;
 
-class ArticleService {
-
-    create (article) {
-        return db.models.Article.create({
-            title: article.title,
-            description: article.description,
-            content: article.content,
-            image: article.image,
-            ID_Author: article.id_author,
-            updatedAt: article.updatedAt
+        const newUser = await articleRepository.createNewInstance({
+            userId,
+            title,
+            description,
+            content,
+            image,
         });
-    }
 
-    get () {
-        return db.models.Article.findAll();
-    }
+        return { newUser };     
+    },
 
-    get (id) {
-        return db.models.Article.findOne({
-            where: { 
-                id: id 
-            } 
-        });
-    }
+    getArticle: async (requestDetails) => {
+        const articleId = requestDetails.id;
 
-    update (id, article) {
-        return db.models.Article.update({
-            title: article.title,
-            description: article.description,
-            content: article.content,
-            image: article.image,
-            ID_Author: article.id_author,
-            updatedAt: article.updatedAt
-        }, {
-            where: { _id: id } 
-        });
-    }
+        const article = await articleRepository.getById(articleId);
+
+        if (!article) {
+            throw {
+                status: StatusCodes.NOT_FOUND,
+                message: "Article not found; id = " + articleId
+            };
+        }
+
+        return { article };      
+    },
+
+    getArticleByUser: async (requestDetails) => {
+        let query;
+        query.userId = requestDetails.id;
+
+        const articles = await articleRepository.getAllByField(query);
+
+        return { articles };      
+    },
     
-    delete (id) {
-        return db.models.Article.destroy({
-            where: { 
-                id: id 
-            } 
-        });
-    }
-}
+    getAllArticles: async () => {
+        // verify
+        const articles = await articleRepository.getAll();
+        
+        return { articles };      
+    },
 
-module.exports = ArticleService;
+    updateArticle: async (articleDetails, requestDetails) => {
+        const articleId = requestDetails.id;
+
+        const articleToBeUpdated = await articleRepository.getById(articleId);
+
+        if (!articleToBeUpdated) {
+            throw {
+                status: StatusCodes.NOT_FOUND,
+                message: "Article not found; id = " + articleId
+            };
+        }
+
+        const updatedResponse = await articleRepository.updateInstance(articleToBeUpdated, articleDetails);
+
+        return { updatedResponse };
+    },
+
+    autodeleteArticle: async (requestDetails) => {
+        const { id } = requestDetails;
+
+        const deleteResponse = await articleRepository.deleteInstanceById(id);
+
+        return {
+            message: "Article deleted with success",
+            deleteResponse
+        };
+    }
+};
