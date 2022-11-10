@@ -1,4 +1,5 @@
 const { userRepository } = require("../repositories");
+const { StatusCodes } = require("http-status-codes");
 
 module.exports = {
     signup: async (userDetails) => {
@@ -47,7 +48,7 @@ module.exports = {
         }
 
         return {
-            user
+            status: StatusCodes.OK,
         };
     },
 };
