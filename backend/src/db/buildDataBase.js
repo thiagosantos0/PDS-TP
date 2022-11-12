@@ -1,11 +1,11 @@
-const sequelize = require(`${__dirname}/models`);
+const db = require('../models/index');
 
 async function build(){
-    await sequelize.models.User.sync();
-    await sequelize.models.Article.sync();
+    await db.models.User.sync();
+    await db.models.Article.sync();
 
     //Definindo os autores (Test)
-    sequelize.models.User.create({
+    db.models.User.create({
         name: 'Kobayashi',
         email: "teste@gmail.com",
         password: "teste"
@@ -13,7 +13,7 @@ async function build(){
 
 
     // Definindo os artigos (Test)
-    sequelize.models.Article.create({
+    db.models.Article.create({
         id: 0,
         title: 'React Article',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum non diam eget posuere. Maecenas malesuada vitae turpis id malesuada. Donec ornare nibh a nunc facilisis, non porttitor felis convallis.',
@@ -23,7 +23,7 @@ async function build(){
         updatedAt: '2022-04-25 21:48:56'
     });
 
-    sequelize.models.Article.create({
+    db.models.Article.create({
         id: 1,
         title: 'MySql Article',
         description: 'Suspendisse varius odio eget posuere auctor. Aenean nec purus ipsum. Integer orci tellus, blandit et mauris id, efficitur ornare nunc. Nulla et ex vel odio aliquet tempus. Sed tortor metus, viverra ac enim sit amet, dignissim efficitur tellus.',
@@ -33,7 +33,7 @@ async function build(){
         updatedAt: '2022-10-08 19:06:2'
     });
 
-    sequelize.models.Article.create({
+    db.models.Article.create({
         id: 2,
         title: 'Express Article',
         description: 'Aliquam viverra sapien sed diam fermentum pellentesque. Nulla maximus enim a turpis sollicitudin lobortis. Praesent ut leo feugiat, tempor libero quis, lacinia libero. Duis nec dapibus nulla.',
@@ -43,7 +43,7 @@ async function build(){
         updatedAt: '2022-06-18 11:50:28'
     });
 
-    sequelize.models.Article.create({
+    db.models.Article.create({
         id: 3,
         title: 'Node Article',
         description: 'Cras tincidunt lectus quis sem gravida sodales. Donec malesuada erat ut tellus tempus, nec vestibulum odio vulputate.',
@@ -54,4 +54,4 @@ async function build(){
     });
 }
 
-build()
+module.exports = build();

@@ -1,28 +1,7 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const cors = require('cors');
-const sequelize = require('./db/models')
-const bodyParser = require('body-parser')
+const app = require('./config');
 
-// const db = require('./db/mysql')
-
-//Rotas
-
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cors());
-
-var articlesRouter = require("./controllers/article-controller");
-app.use("/artigos", articlesRouter);
-
-const usersRouter = require('./controllers/user-controller');
-app.use('/usuarios', usersRouter);
-
-app.get('/', async (req, res) => {
-  const users = await sequelize.models.User.findAll()
-  res.status(200).json(users)
-})
+const port = app.get("port");
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.info(`Webserver is up on port 3000`);
+});
