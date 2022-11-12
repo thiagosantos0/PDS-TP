@@ -9,9 +9,12 @@ import UserArticles, {
   action as userArticlesAction,
   loader as userArticlesLoader,
 } from './routes/UserArticles.jsx';
-import Editor from './routes/Editor.jsx';
+import Editor, {
+  action as editorAction,
+  loader as editorLoader,
+} from './routes/Editor.jsx';
 import PublicArticles from './routes/PublicArticles.jsx';
-import Reader from './routes/Reader.jsx';
+import Reader, { loader as readerLoader } from './routes/Reader.jsx';
 import { action as deleteArticleAction } from './routes/DeleArticle.js';
 import { action as createArticleAction } from './routes/CreateArticle.js';
 
@@ -56,10 +59,13 @@ export const router = createBrowserRouter([
           {
             path: ':userId/:docId/editor',
             element: <Editor />,
+            action: editorAction,
+            loader: editorLoader,
           },
           {
             path: ':userId/:docId/reader',
             element: <Reader />,
+            loader: readerLoader,
           },
         ],
       },
