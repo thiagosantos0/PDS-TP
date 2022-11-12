@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux';
 
 import { openModal } from '../../features/modal/modalSlice.js';
 
-const CardItem = ({ docId, image, name, description, updatedAt }) => {
+const CardItem = ({ docId, image, title, description, updatedAt }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -50,7 +50,10 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
     dispatch(
       openModal({
         type: 'edit-metadata',
-        modalData: { name, image, description },
+        meta: {
+          title: 'Editar Metadados',
+        },
+        data: { docId, title, image, description },
       }),
     );
   };
@@ -60,7 +63,7 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
     dispatch(
       openModal({
         type: 'delete-article',
-        modalData: { docId, name },
+        data: { docId, title },
       }),
     );
   };
@@ -80,7 +83,7 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
         <CardMedia
           component='img'
           image={image}
-          alt={name}
+          alt={title}
           sx={{
             flexGrow: 1,
             '&.MuiCardMedia-root': {
@@ -96,7 +99,7 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
               <MoreVertIcon />
             </IconButton>
           }
-          title={name}
+          title={title}
           subheader={date}
           titleTypographyProps={{
             variant: 'subtitle2',
