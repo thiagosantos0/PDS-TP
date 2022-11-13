@@ -29,7 +29,7 @@ const Register = () => {
   useEffect(() => {
     if (actionData) dispatch(setCredentials(actionData.newUser));
     if (credentials.isLoggedIn) navigate(`/${credentials.id}/articles`);
-  }, [actionData, credentials]);
+  }, [actionData, credentials, dispatch, navigate]);
 
   return (
     <Container component='main' maxWidth='xs'>
