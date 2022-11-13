@@ -7,8 +7,7 @@ module.exports = {
       await createNewInstance(user);
    },
 
-   getUser: async (requesterDetails) => {
-      const userId = requesterDetails.id;
+   getUser: async (userId) => {
 
       const user = await userRepository.getById(userId);
 
@@ -29,8 +28,7 @@ module.exports = {
       return { users };      
    },
 
-   updateUser: async (userDetails) => {
-      const userId = userDetails.id;
+   updateUser: async (userId) => {
 
       const userToBeUpdated = await userRepository.getById(userId);
 
@@ -46,10 +44,9 @@ module.exports = {
       return { updatedResponse };
    },
 
-   autodeleteUser: async (requesterDetails) => {
-      const { id } = requesterDetails;
+   autodeleteUser: async (userId) => {
 
-      const deleteResponse = await userRepository.deleteInstanceById(id);
+      const deleteResponse = await userRepository.deleteInstanceById(userId);
 
       return {
          message: "User deleted with success",

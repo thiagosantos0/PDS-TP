@@ -23,7 +23,7 @@ module.exports = {
 
     getUser: async (req, res) => {
         try {
-            const getResponse = await userService.getUser(req.body);
+            const getResponse = await userService.getUser(req.params.id);
 
             return res.status(StatusCodes.OK).json(getResponse);         
         } catch (error) {
@@ -49,7 +49,7 @@ module.exports = {
 
     updateUser: async (req, res) => {
         try {
-            const getResponse = await userService.updateUser(req.body);
+            const getResponse = await userService.updateUser(req.params.id);
 
             return res.status(StatusCodes.OK).json(getResponse);         
         } catch (error) {
@@ -62,7 +62,7 @@ module.exports = {
 
     autodeleteUser: async (req, res) => {
         try {
-            const deleteResponse = await userService.autodeleteUser(req.body);
+            const deleteResponse = await userService.autodeleteUser(req.params.id);
 
             return res.status(StatusCodes.OK).json(deleteResponse);         
         } catch (error) {

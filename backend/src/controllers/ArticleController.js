@@ -17,7 +17,7 @@ module.exports = {
 
     getArticle: async (req, res) => {
         try {
-            const getResponse = await articleService.getArticle(req.body);
+            const getResponse = await articleService.getArticle(req.params.id);
 
             return res.status(StatusCodes.OK).json(getResponse);         
         } catch (error) {
@@ -43,7 +43,7 @@ module.exports = {
     
     getArticleByUser: async (req, res) => {
         try {
-            const getResponse = await articleService.getArticleByUser(req.body);
+            const getResponse = await articleService.getArticleByUser(req.params.id);
 
             return res.status(StatusCodes.OK).json(getResponse);         
         } catch (error) {
@@ -56,7 +56,7 @@ module.exports = {
 
     updateArticle: async (req, res) => {
         try {
-            const getResponse = await articleService.updateArticle(req.body);
+            const getResponse = await articleService.updateArticle(req.params.id);
 
             return res.status(StatusCodes.OK).json(getResponse);         
         } catch (error) {
@@ -69,7 +69,7 @@ module.exports = {
 
     autodeleteArticle: async (req, res) => {
         try {
-            const deleteResponse = await articleService.autodeleteArticle(req.body);
+            const deleteResponse = await articleService.autodeleteArticle(req.params.id);
 
             return res.status(StatusCodes.OK).json(deleteResponse);         
         } catch (error) {

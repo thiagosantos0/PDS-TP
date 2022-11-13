@@ -23,8 +23,7 @@ module.exports = {
         return { newUser };     
     },
 
-    getArticle: async (requestDetails) => {
-        const articleId = requestDetails.id;
+    getArticle: async (articleId) => {
 
         const article = await articleRepository.getById(articleId);
 
@@ -38,9 +37,9 @@ module.exports = {
         return { article };      
     },
 
-    getArticleByUser: async (requestDetails) => {
+    getArticleByUser: async (userId) => {
         let query = {};
-        query.userId = requestDetails.id;
+        query.userId = userId;
 
         const articles = await articleRepository.getAllByField(query);
 
@@ -54,8 +53,7 @@ module.exports = {
         return { articles };      
     },
 
-    updateArticle: async (articleDetails, requestDetails) => {
-        const articleId = requestDetails.id;
+    updateArticle: async (articleDetails, articleId) => {
 
         const articleToBeUpdated = await articleRepository.getById(articleId);
 
@@ -71,10 +69,9 @@ module.exports = {
         return { updatedResponse };
     },
 
-    autodeleteArticle: async (requestDetails) => {
-        const { id } = requestDetails;
+    autodeleteArticle: async (articleId) => {
 
-        const deleteResponse = await articleRepository.deleteInstanceById(id);
+        const deleteResponse = await articleRepository.deleteInstanceById(articleId);
 
         return {
             message: "Article deleted with success",
