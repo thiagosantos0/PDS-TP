@@ -14,7 +14,10 @@ module.exports = {
             await UserService.createUser(usuario)
             res.status(200).end()
         } catch (error) {
-
+            console.error(error);
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error.message);
         }
     },
 
