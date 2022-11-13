@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
         'root', 
         'root', {
         host: 'db',
-        dialect: 'mysql'
+        dialect: 'sqlite'
     });
 
 fs.readdirSync(__dirname)
