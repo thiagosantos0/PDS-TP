@@ -10,7 +10,7 @@ import EditMetadataModal from '../components/UserArticlesRoute/EditMetadataModal
 import DeleteArticleModal from '../components/UserArticlesRoute/DeleteArticleModal.jsx';
 import { closeModal, openModal } from '../features/modal/modalSlice.js';
 
-import { SAMPLE_ARTICLES } from '../components/sample-articles.js';
+import { apiAxios } from '../app/apiAxios.js';
 
 const UserArticles = () => {
   const loaderData = useLoaderData();
@@ -74,8 +74,10 @@ export async function action({ request }) {
   return { ok: true };
 }
 
-export async function loader() {
-  return SAMPLE_ARTICLES;
+export async function loader({ params }) {
+  const { data } = await apiAxios.get(`/article/get-articles-by-user/${params.userId}`);
+  console.log(data.articles);
+  return data.articles;
 }
 
 export default UserArticles;
