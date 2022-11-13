@@ -28,8 +28,6 @@ const EditMetadataModal = () => {
         onSubmit={(event) => {
           event.preventDefault();
           const formData = new FormData(event.target);
-          // console.log(formData.get("name"))
-
           if (editMode) formData.append('docId', modal.data.docId);
           fetcher.submit(formData, {
             method: 'post',

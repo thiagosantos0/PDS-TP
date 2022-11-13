@@ -17,7 +17,7 @@ import PublicArticles, {
   loader as publicArticlesLoader,
 } from './routes/PublicArticles.jsx';
 import Reader, { loader as readerLoader } from './routes/Reader.jsx';
-import { action as deleteArticleAction } from './routes/DeleteArticle.js';
+import { action as deleteArticleAction } from './routes/DeleArticle.js';
 import { action as createArticleAction } from './routes/CreateArticle.js';
 import RequireAuth from './routes/RequireAuth.jsx';
 
