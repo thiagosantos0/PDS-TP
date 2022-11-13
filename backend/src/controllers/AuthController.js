@@ -21,9 +21,11 @@ module.exports = {
 
     login: async (req, res) => {
         try {
-            const loginResponse = await authService.login(req.body);
-
-            return res.status(StatusCodes.OK).json(loginResponse);
+            const userInfo = await authService.login(req.body);
+            const token = await authService.generateToken(userInfo)
+            return res.cookie('jwt', token, {
+                httpOnly: true,
+            }).json(userInfo);
         } catch (error) {
             console.error(error);
             return res

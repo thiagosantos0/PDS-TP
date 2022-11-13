@@ -1,5 +1,6 @@
 const { userRepository } = require("../repositories");
 const { StatusCodes } = require("http-status-codes");
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     signup: async (userDetails) => {
@@ -53,8 +54,11 @@ module.exports = {
             name: user.name
         }
 
-        return {
-            userInfo
-        };
+        return { userInfo };
     },
+
+    generateToken: async (userDetails) => {
+        const token = jwt.sign({ user: userDetails }, 'secretkey');
+        return token;
+    }
 };
