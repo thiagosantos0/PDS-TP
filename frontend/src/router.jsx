@@ -19,6 +19,7 @@ import PublicArticles, {
 import Reader, { loader as readerLoader } from './routes/Reader.jsx';
 import { action as deleteArticleAction } from './routes/DeleArticle.js';
 import { action as createArticleAction } from './routes/CreateArticle.js';
+import RequireAuth from './routes/RequireAuth.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -46,29 +47,36 @@ export const router = createBrowserRouter([
             loader: publicArticlesLoader,
           },
           {
-            path: ':userId/articles',
-            element: <UserArticles />,
-            action: userArticlesAction,
-            loader: userArticlesLoader,
-          },
-          {
-            path: ':userId/articles/create',
-            action: createArticleAction,
-          },
-          {
-            path: ':userId/:docId/delete',
-            action: deleteArticleAction,
-          },
-          {
-            path: ':userId/:docId/editor',
-            element: <Editor />,
-            action: editorAction,
-            loader: editorLoader,
-          },
-          {
             path: ':userId/:docId/reader',
             element: <Reader />,
             loader: readerLoader,
+          },
+          {
+            path: '/',
+            element: <RequireAuth />,
+            errorElement: <ErrorPage />,
+            children: [
+              {
+                path: ':userId/articles',
+                element: <UserArticles />,
+                action: userArticlesAction,
+                loader: userArticlesLoader,
+              },
+              {
+                path: ':userId/articles/create',
+                action: createArticleAction,
+              },
+              {
+                path: ':userId/:docId/delete',
+                action: deleteArticleAction,
+              },
+              {
+                path: ':userId/:docId/editor',
+                element: <Editor />,
+                action: editorAction,
+                loader: editorLoader,
+              },
+            ],
           },
         ],
       },
