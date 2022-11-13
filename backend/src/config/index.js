@@ -9,6 +9,6 @@ app.get("/", (req, res) => {
    return res.status(200).json("server is running");
 });
 
-Object.keys(routes).forEach((key) => app.use(`/api${key}`, routes[key]));
+Object.keys(routes).forEach((key) => app.use(`/api/${key}`, routes[key]));
 
 module.exports = app;

@@ -3,9 +3,14 @@ const Sequelize = require("sequelize");
 
 const db = {};
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './database.sql'
+const sequelize = new Sequelize(
+  'compArtigos', 
+  'root', 
+  'root', {
+  host: 'db',
+  dialect: 'mysql'
+  // dialect: 'sqlite',
+  // storage: './database.sql'
 });
 
 const articleModel = require("./ArticleModel.js")(
