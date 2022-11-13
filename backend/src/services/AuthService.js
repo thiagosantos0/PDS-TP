@@ -8,8 +8,8 @@ module.exports = {
             email,
             password,
         } = userDetails;
-
-        const userWithEmail = await userRepository.getOneByField({ email });
+        console.log("email = " + { email: email })
+        const userWithEmail = await userRepository.getOneByField({ email: email });
         if (userWithEmail) {
             throw {
                 status: StatusCodes.CONFLICT,
