@@ -10,6 +10,8 @@ import EditMetadataModal from '../components/UserArticlesRoute/EditMetadataModal
 import DeleteArticleModal from '../components/UserArticlesRoute/DeleteArticleModal.jsx';
 import { closeModal, openModal } from '../features/modal/modalSlice.js';
 
+import { SAMPLE_ARTICLES } from '../components/sample-articles.js';
+
 const UserArticles = () => {
   const loaderData = useLoaderData();
   const dispatch = useDispatch();
@@ -73,8 +75,7 @@ export async function action({ request }) {
 }
 
 export async function loader() {
-  const res = await fetch('http://localhost:3000/artigos');
-  return await res.json();
+  return SAMPLE_ARTICLES;
 }
 
 export default UserArticles;

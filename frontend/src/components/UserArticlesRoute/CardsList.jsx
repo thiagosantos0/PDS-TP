@@ -14,11 +14,11 @@ const CardsList = ({ articles }) => {
         gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
       }}
     >
-      {articles.map(({ id: docId, image, title, description, updatedAt }) => (
+      {articles.map(({ id: docId, image, name, description, updatedAt }) => (
         <CardItem
           docId={docId}
           image={image}
-          title={title}
+          name={name}
           description={description}
           updatedAt={updatedAt}
           key={docId}

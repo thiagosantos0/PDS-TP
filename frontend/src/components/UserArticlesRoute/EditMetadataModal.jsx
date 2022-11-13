@@ -41,15 +41,15 @@ const EditMetadataModal = () => {
           <TextField
             autoFocus
             margin='normal'
-            id='title'
-            name='title'
-            label='Título'
+            id='name'
+            name='name'
+            label='Nome do Artigo'
             autoComplete='name'
             fullWidth
             multiline
             maxRows={4}
             required
-            defaultValue={modal.data.title}
+            defaultValue={modal.data.name}
           />
           <TextField
             autoFocus

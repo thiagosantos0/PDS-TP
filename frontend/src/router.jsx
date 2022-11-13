@@ -13,7 +13,9 @@ import Editor, {
   action as editorAction,
   loader as editorLoader,
 } from './routes/Editor.jsx';
-import PublicArticles from './routes/PublicArticles.jsx';
+import PublicArticles, {
+  loader as publicArticlesLoader,
+} from './routes/PublicArticles.jsx';
 import Reader, { loader as readerLoader } from './routes/Reader.jsx';
 import { action as deleteArticleAction } from './routes/DeleArticle.js';
 import { action as createArticleAction } from './routes/CreateArticle.js';
@@ -41,6 +43,7 @@ export const router = createBrowserRouter([
           {
             path: 'articles',
             element: <PublicArticles />,
+            loader: publicArticlesLoader,
           },
           {
             path: ':userId/articles',
