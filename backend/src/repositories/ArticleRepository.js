@@ -1,9 +1,9 @@
-const { ArticleModel } = require("../models");
+const { Article } = require("../models");
 
 module.exports = {
-    getById: (id) => ArticleModel.findByPk(id),
-    getOneByField: (params) => ArticleModel.findOne({ where: params }),
-    createNewInstance: (params) => ArticleModel.create(params),
+    getById: (id) => Article.findByPk(id),
+    getOneByField: (params) => Article.findOne({ where: params }),
+    createNewInstance: (params) => Article.create(params),
     updateInstance: (article, articleDetails) => article.update(articleDetails),
-    deleteInstanceById: (id) => ArticleModel.destroy({ where: { id } })
+    deleteInstanceById: (id) => Article.destroy({ where: { id } })
 };

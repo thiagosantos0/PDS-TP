@@ -1,9 +1,9 @@
-const { UserModel } = require("../models");
+const { User } = require("../models");
 
 module.exports = {
-    getById: (id) => UserModel.findByPk(id),
-    getOneByField: (params) => UserModel.findOne({ where: params }),
-    createNewInstance: (params) => UserModel.create(params),
+    getById: (id) => User.findByPk(id),
+    getOneByField: (params) => User.findOne({ where: params }),
+    createNewInstance: (params) => User.create(params),
     updateInstance: (user, userDetails) => user.update(userDetails),
-    deleteInstanceById: (id) => UserModel.destroy({ where: { id } })
+    deleteInstanceById: (id) => User.destroy({ where: { id } })
 };

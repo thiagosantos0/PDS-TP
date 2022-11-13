@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
             image: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            updatedAt: {
+                type: DataTypes.DATE,
+                allowNull: false,
+            },
+            createdAt: {
+                type: DataTypes.DATE,
+                allowNull: false,
             }
         },
         {
