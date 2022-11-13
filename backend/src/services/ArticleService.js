@@ -7,7 +7,8 @@ module.exports = {
             title,
             description,
             content,
-            image
+            image,
+            updatedAt
         } = articleDetails;
 
         const newUser = await articleRepository.createNewInstance({
@@ -16,6 +17,7 @@ module.exports = {
             description,
             content,
             image,
+            updatedAt
         });
 
         return { newUser };     
