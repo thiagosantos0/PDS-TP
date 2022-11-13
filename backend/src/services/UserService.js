@@ -1,5 +1,6 @@
 const { userRepository } = require("../repositories");
 const { createNewInstance } = require("../repositories/UserRepository");
+const { StatusCodes } = require("http-status-codes");
 
 module.exports = {
    createUser: async(user) => {
@@ -28,8 +29,8 @@ module.exports = {
       return { users };      
    },
 
-   updateUser: async (userDetails, requesterDetails) => {
-      const userId = requesterDetails.id;
+   updateUser: async (userDetails) => {
+      const userId = userDetails.id;
 
       const userToBeUpdated = await userRepository.getById(userId);
 
