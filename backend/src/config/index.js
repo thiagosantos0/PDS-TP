@@ -7,7 +7,7 @@ const cors = require('cors');
 app.set("port", 3000);
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cors());
+app.use(cors({credentials: true}));
 
 app.get("/", (req, res) => {
    return res.status(200).json("server is running");
