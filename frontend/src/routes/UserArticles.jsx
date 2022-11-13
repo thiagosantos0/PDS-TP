@@ -74,7 +74,8 @@ export async function action({ request }) {
   return { ok: true };
 }
 
-export async function loader() {
+export async function loader({ params }) {
+  console.log(params);
   return SAMPLE_ARTICLES;
 }
 
