@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { useLoaderData } from 'react-router-dom';
 
 import CardsList from '../components/PublicArticlesRoute/CardsList.jsx';
-import axios from 'axios';
+import { apiAxios } from '../app/apiAxios.js';
 
 
 const PublicArticles = () => {
@@ -19,17 +19,8 @@ const PublicArticles = () => {
 };
 
 export async function loader() {
-  const articles = axios({
-    method: 'get',
-    url: 'http://localhost:3000/api/article/get-all-article',
-  })
-  .then(function (response) {
-    return response.data.articles;
-  },function(e) {
-    console.log(e);
-  });
-
-  return articles;
+  const { data } = await apiAxios.get('/article/get-all-article');
+  return data.articles;
 }
 
 export default PublicArticles;
