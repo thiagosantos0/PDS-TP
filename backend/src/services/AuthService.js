@@ -60,5 +60,24 @@ module.exports = {
     generateToken: async (userDetails) => {
         const token = jwt.sign({ user: userDetails }, 'secretkey');
         return token;
+    },
+
+    verifyToken: async (req) => {
+        let token = null;
+        if (req && req.cookies) {
+          token = req.cookies['jwt'];
+        }
+
+        if (token) {
+            const decodedToken = jwt.verify(token, 'secretkey');
+            req.user = decodedToken.user;
+        }
+      
+        if (!req.user) {
+            throw {
+                status: StatusCodes.UNAUTHORIZED,
+                message: "you need to log in"
+            }
+        }
     }
 };
