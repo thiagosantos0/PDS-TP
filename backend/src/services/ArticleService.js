@@ -39,7 +39,7 @@ module.exports = {
     },
 
     getArticleByUser: async (requestDetails) => {
-        let query;
+        let query = {};
         query.userId = requestDetails.id;
 
         const articles = await articleRepository.getAllByField(query);
