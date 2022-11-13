@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
             email: {
                 type: DataTypes.STRING,
                 allowNull: false
-            },
-            createdAt: {
-                type: DataTypes.DATE,
-                allowNull: false,
             }
         },
         {

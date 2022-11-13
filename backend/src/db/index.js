@@ -3,22 +3,24 @@ const db = require("../models")
 
 module.exports = {
     buildDB: async () => {
+        await db.sequelize.models.Article.sync({ force: true });
         await db.sequelize.models.User.sync();
-        await db.sequelize.models.Article.sync();
         //Definindo os autores (Test)
 
         try {
-            authService.signup({
+            await authService.signup({
                 name: 'Kobayashi',
                 email: "teste@gmail.com",
                 password: "teste"
-            });        
+            }).then(() => {
+                console.log("Usuário criado")
+            });    
         } catch (error) {
             console.log("falha criando usuário " + error);
         }
 
         try {
-            articleService.createArticle({
+            await articleService.createArticle({
                 title: 'React Article',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum non diam eget posuere. Maecenas malesuada vitae turpis id malesuada. Donec ornare nibh a nunc facilisis, non porttitor felis convallis.',
                 content: "article content",
@@ -31,7 +33,7 @@ module.exports = {
         }
 
         try {
-            articleService.createArticle({
+            await articleService.createArticle({
                 title: 'MySql Article',
                 description: 'Suspendisse varius odio eget posuere auctor. Aenean nec purus ipsum. Integer orci tellus, blandit et mauris id, efficitur ornare nunc. Nulla et ex vel odio aliquet tempus. Sed tortor metus, viverra ac enim sit amet, dignissim efficitur tellus.',
                 content: "article content",
@@ -44,7 +46,7 @@ module.exports = {
         }
 
         try {
-            articleService.createArticle({
+            await articleService.createArticle({
                 title: 'Express Article',
                 description: 'Aliquam viverra sapien sed diam fermentum pellentesque. Nulla maximus enim a turpis sollicitudin lobortis. Praesent ut leo feugiat, tempor libero quis, lacinia libero. Duis nec dapibus nulla.',
                 content: "article content",
@@ -57,7 +59,7 @@ module.exports = {
         }
 
         try {
-            articleService.createArticle({
+            await articleService.createArticle({
                 title: 'Node Article',
                 description: 'Cras tincidunt lectus quis sem gravida sodales. Donec malesuada erat ut tellus tempus, nec vestibulum odio vulputate.',
                 content: "article content",

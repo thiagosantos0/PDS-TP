@@ -22,7 +22,8 @@ module.exports = {
             email,
             password,
         });
-
+        
+        console.log("Usuário criado no service")
         return { newUser };     
     },
 
