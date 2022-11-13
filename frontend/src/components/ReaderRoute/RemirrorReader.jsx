@@ -37,7 +37,7 @@ const markMap = {
   underline: 'u',
 };
 
-const RemirrorReader = ({ initialContent }) => {
+const RemirrorReader = ({ initialContent = '{"type":"doc","content":[]}' }) => {
   const content = useMemo(() => {
     const string = isString(initialContent);
     return string ? JSON.parse(initialContent) : initialContent;

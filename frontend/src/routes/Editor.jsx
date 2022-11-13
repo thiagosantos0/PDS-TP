@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
 
 import RemirrorEditor from '../components/EditorRoute/RemirrorEditor.jsx';
-import { SAMPLE_DOC } from '../components/sample-doc.js';
+import { apiAxios } from '../app/apiAxios.js';
 
 const Editor = () => {
   const editorRef = useRef();
@@ -51,15 +51,34 @@ const Editor = () => {
 };
 
 export async function action({ request, params }) {
-  const { userId } = params;
+  const { userId, docId } = params;
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  console.log(updates);
+  const { content } = updates;
+
+  try {
+    await apiAxios.put(`/article/update-article/${docId}`, { content });
+  } catch (e) {
+    console.error(e);
+  }
+
   return redirect(`/${userId}/articles`);
 }
 
-export async function loader() {
-  return SAMPLE_DOC;
+export async function loader({ params }) {
+  const { docId } = params;
+  let content;
+  try {
+    const response = await apiAxios.get(`/article/get-article/${docId}`);
+    content = response.data.article?.content;
+    // Retirar depois
+    if (content === 'article content') content = undefined;
+    if (content === '') content = undefined;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return content;
 }
 
 export default Editor;

@@ -36,7 +36,10 @@ import useMenu from './useMenu.js';
 import MenuButton from './MenuButton.jsx';
 import FloatingLinkToolbar from './FloatingLinkToolbar.jsx';
 
-const RemirrorEditor = ({ initialContent }, ref) => {
+const RemirrorEditor = (
+  { initialContent = '{"type":"doc","content":[]}' },
+  ref,
+) => {
   const content = useMemo(() => {
     const string = isString(initialContent);
     return string ? JSON.parse(initialContent) : initialContent;
