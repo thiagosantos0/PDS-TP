@@ -48,8 +48,13 @@ module.exports = {
             }
         }
 
+        const userInfo = {
+            id: user.id,
+            name: user.name
+        }
+
         return {
-            status: StatusCodes.OK,
+            userInfo
         };
     },
 };
