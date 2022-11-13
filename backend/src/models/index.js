@@ -3,14 +3,11 @@ const Sequelize = require("sequelize");
 
 const db = {};
 
-const sequelize = new Sequelize(
-  'compArtigos', 
-  'root', 
-  'root', {
-  host: 'db',
-  dialect: 'mysql'
-  // dialect: 'sqlite',
-  // storage: './database.sql'
+const sequelize = new Sequelize("compArtigos", "root", "root", {
+  // host: 'db',
+  // dialect: 'mysql'
+  dialect: "sqlite",
+  storage: "./database.sql",
 });
 
 const articleModel = require("./ArticleModel.js")(
@@ -19,17 +16,14 @@ const articleModel = require("./ArticleModel.js")(
 );
 db[articleModel.name] = articleModel;
 
-const userModel = require("./UserModel.js")(
-  sequelize,
-  Sequelize.DataTypes
-);
+const userModel = require("./UserModel.js")(sequelize, Sequelize.DataTypes);
 db[userModel.name] = userModel;
 
 sequelize.sync();
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
-    console.log("aqui chega")
+    console.log("aqui chega");
     db[modelName].associate(db);
   }
 });

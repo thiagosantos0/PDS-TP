@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -7,12 +8,29 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
-import { Form, redirect } from 'react-router-dom';
+import { Form, useActionData, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { apiAxios } from '../app/apiAxios.js';
+import {
+  setCredentials,
+  selectCredentials,
+} from '../features/auth/authSlice.js';
 
 const MuiForm = styled(Form)({});
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const credentials = useSelector(selectCredentials);
+  const actionData = useActionData();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (actionData) dispatch(setCredentials(actionData.newUser));
+    if (credentials.isLoggedIn) navigate(`/${credentials.id}/articles`);
+  }, [actionData, credentials]);
+
   return (
     <Container component='main' maxWidth='xs'>
       <Box
@@ -82,9 +100,9 @@ const Register = () => {
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  console.log(updates);
-  return redirect('/auth/login');
+  const authData = Object.fromEntries(formData);
+  const { data } = await apiAxios.post('/auth/signup', authData);
+  return data;
 }
 
 export default Register;
