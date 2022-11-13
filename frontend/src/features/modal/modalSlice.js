@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { type: null, modalData: null };
+const initialState = { type: null, meta: {}, data: {} };
 
 export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
     openModal: (state, action) => {
-      const { type, modalData } = action.payload;
+      const { type = null, data = {}, meta = {} } = action.payload;
       state.type = type;
-      state.modalData = modalData;
+      state.data = data;
+      state.meta = meta;
     },
     closeModal: () => {
       return initialState;

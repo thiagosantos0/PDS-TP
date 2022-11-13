@@ -1,5 +1,65 @@
+import { useRef } from 'react';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
+
+import RemirrorEditor from '../components/EditorRoute/RemirrorEditor.jsx';
+import { SAMPLE_DOC } from '../components/sample-doc.js';
+
 const Editor = () => {
-  return <div>Criar/Editar Artigo (Editor)</div>;
+  const editorRef = useRef();
+  const fetcher = useFetcher();
+  const loaderData = useLoaderData();
+
+  return (
+    <Container maxWidth='md'>
+      <Box
+        component='form'
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (!editorRef.current) return;
+
+          const state = editorRef.current.getState();
+          const { getJSON } = editorRef.current.helpers;
+          const formData = new FormData();
+          formData.append('docId', 'docId');
+          formData.append('content', JSON.stringify(getJSON(state)));
+          fetcher.submit(formData, { method: 'post' });
+        }}
+      >
+        <Toolbar sx={{ flexDirection: 'row-reverse' }}>
+          <Button
+            variant='contained'
+            color='success'
+            type='submit'
+            sx={{
+              boxShadow: 'none',
+              '&:hover': {
+                boxShadow: 'none',
+              },
+            }}
+          >
+            Publish
+          </Button>
+        </Toolbar>
+        <RemirrorEditor ref={editorRef} initialContent={loaderData} />
+      </Box>
+    </Container>
+  );
 };
+
+export async function action({ request, params }) {
+  const { userId } = params;
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  console.log(updates);
+  return redirect(`/${userId}/articles`);
+}
+
+export async function loader() {
+  return SAMPLE_DOC;
+}
 
 export default Editor;
