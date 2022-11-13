@@ -1,6 +1,11 @@
 const { userRepository } = require("../repositories");
+const { createNewInstance } = require("../repositories/UserRepository");
 
 module.exports = {
+   createUser: async(user) => {
+      await createNewInstance(user);
+   },
+
    getUser: async (requesterDetails) => {
       const userId = requesterDetails.id;
 
