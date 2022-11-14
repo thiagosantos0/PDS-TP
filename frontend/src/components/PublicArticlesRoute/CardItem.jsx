@@ -41,7 +41,7 @@ const CardItem = ({
         },
       })}
     >
-      <Box sx={{ display: 'flex', height: '100%' }}>
+      <Box sx={{ flex: 1, display: 'flex', height: '100%' }}>
         <CardMedia
           component='img'
           image={image}
