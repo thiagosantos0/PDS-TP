@@ -3,7 +3,7 @@
 ### Membros e Papeis
 
 - Matheus Alexandre Irias de Oliveira - Desenvolvedor Back-end
-- Thiago Henrique - Desenvolvedor Front-end
+- Thiago Henrique Moreira Santos - Desenvolvedor Front-end
 - João Pedro Macedo Oliveira - Desenvolvedor Front-end
 - Lucas Augusto Araújo Aguiar - Desenvolvedor Back-end
 
@@ -102,5 +102,11 @@ Plataforma para criação e compartilhamento de artigos de texto.
     - Criar interface para visualizar os artigos retornados
     - Estabelecer comunicação entre o front e o back
 
+### Documentação da arquitetura
+- Por que o sistema está adotando essa arquitetura?
+    - Porque a arquitetura hexagonal torna o sistema independente de tecnologia, além de permitir que o código seja mais reutilizável e coeso.
 
-
+- Quais são as portas e adaptadores? Qual o objetivo deles?
+    - Adaptadores - Os Repositórios funcionam como adaptadores, recebendo as chamadas da porta de saída e transformando nas operações correspondentes no banco de dados.
+    - Porta de entrada - São as Rotas, onde são declaradas as funcionalidades oferecidas pelo sistema.
+    - Porta de saída - São os Serviços, que contém os métodos que podem ser chamados pelas classes de domínio e que levarão ao uso de serviços externos.
