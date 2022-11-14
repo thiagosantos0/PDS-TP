@@ -18,16 +18,24 @@ const CardItem = ({ userId, docId, image, name, description, updatedAt }) => {
   }, [updatedAt]);
 
   return (
-    <Card onClick={() => navigate(`/${userId}/${docId}/reader`)}>
+    <Card
+      onClick={() => navigate(`/${userId}/${docId}/reader`)}
+      sx={{
+        display: 'flex',
+      }}
+    >
       <CardActionArea>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', height: '100%' }}>
           <CardMedia
             component='img'
             image={image}
             alt='Live from space album cover'
             sx={{
               p: 1,
-              width: '25%',
+              width: {
+                xs: '150px',
+                sm: '200px',
+              },
               '&.MuiCardMedia-root': {
                 objectFit: 'contain',
               },
@@ -35,6 +43,7 @@ const CardItem = ({ userId, docId, image, name, description, updatedAt }) => {
           />
           <CardContent
             sx={{
+              flex: 1,
               display: 'inline-flex',
               justifyContent: 'space-between',
             }}
@@ -60,6 +69,7 @@ const CardItem = ({ userId, docId, image, name, description, updatedAt }) => {
               sx={{
                 whiteSpace: 'nowrap',
                 display: { sm: 'block', xs: 'none' },
+                pl: 2,
               }}
             >
               {date}
