@@ -69,4 +69,19 @@ module.exports = {
         .json(error.message);
     }
   },
+  logout: async (req, res) => {
+    try {
+       res.clearCookie('jwt');
+       res.status(StatusCodes.OK).end();
+      return res.json(req.user);
+    } catch (error) {
+      return res
+        .status(
+          error.name === "ValidationError"
+            ? StatusCodes.UNPROCESSABLE_ENTITY
+            : error.status || StatusCodes.INTERNAL_SERVER_ERROR
+        )
+        .json(error.message);
+    }
+  },
 };
