@@ -3,16 +3,12 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { useFetcher, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectModal, closeModal } from '../../features/modal/modalSlice.js';
-import React, {useState} from 'react'; 
 
 const EditMetadataModal = () => {
   const dispatch = useDispatch();
@@ -20,10 +16,6 @@ const EditMetadataModal = () => {
   const location = useLocation();
   const modal = useSelector(selectModal);
   const editMode = modal.type === 'edit-metadata';
-  const [checked, setChecked] = useState(true); 
-  const handleChange = () => { 
-    setChecked(!checked); 
-  }; 
 
   return (
     <Dialog
@@ -36,8 +28,6 @@ const EditMetadataModal = () => {
         onSubmit={(event) => {
           event.preventDefault();
           const formData = new FormData(event.target);
-          // console.log(formData.get("name"))
-          formData.append('isPublic', checked)
           if (editMode) formData.append('docId', modal.data.docId);
           fetcher.submit(formData, {
             method: 'post',
@@ -56,7 +46,6 @@ const EditMetadataModal = () => {
             label='Nome do Artigo'
             autoComplete='name'
             fullWidth
-            multiline
             maxRows={4}
             required
             defaultValue={modal.data.name}
@@ -68,7 +57,6 @@ const EditMetadataModal = () => {
             name='image'
             label='Imagem'
             fullWidth
-            multiline
             maxRows={4}
             required
             defaultValue={modal.data.image}
@@ -80,21 +68,17 @@ const EditMetadataModal = () => {
             name='description'
             label='Descrição'
             fullWidth
-            multiline
             maxRows={4}
             required
             defaultValue={modal.data.description}
           />
-          <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked onChange={handleChange} />} label="Público"/>
-          </FormGroup>
         </DialogContent>
         <DialogActions>
           <Button
             type='button'
             variant='outlined'
             autoFocus
-            onClick={() => dispatch(closeModal())}
+            onClick={() => {dispatch(closeModal())}}
           >
             Cancelar
           </Button>
