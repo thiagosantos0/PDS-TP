@@ -30,7 +30,7 @@ const Login = () => {
     if (actionData?.status === 200) {
       dispatch(setCredentials(actionData?.data.userInfo));
     }
-    if (credentials.isLoggedIn) navigate(`/${credentials.id}/articles`);
+    if (credentials.isLoggedIn) navigate(`/sec/${credentials.id}/articles`);
   }, [actionData, credentials, dispatch, navigate]);
 
   return (

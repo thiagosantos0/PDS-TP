@@ -42,7 +42,7 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
 
   const handleEditContent = () => {
     setAnchorEl(null);
-    navigate(`/${userId}/${docId}/editor`);
+    navigate(`/sec/${userId}/${docId}/editor`);
   };
 
   const handleEditMetadata = () => {

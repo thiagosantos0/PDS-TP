@@ -35,7 +35,7 @@ const DeleteArticleModal = () => {
           const { docId } = modal.data;
           fetcher.submit(null, {
             method: 'delete',
-            action: `${userId}/${docId}/delete`,
+            action: `/sec/${userId}/${docId}/delete`,
           });
         }}
       >

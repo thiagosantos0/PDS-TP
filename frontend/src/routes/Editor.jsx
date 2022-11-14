@@ -20,7 +20,8 @@ const Editor = () => {
   const fetcher = useFetcher();
   const loaderData = useLoaderData();
 
-  if (loaderData.status !== 200) return <Navigate to={`/${userId}/articles`} />;
+  if (loaderData.status !== 200)
+    return <Navigate to={`/sec/${userId}/articles`} />;
 
   return (
     <Container maxWidth='md'>
@@ -71,7 +72,7 @@ export async function action({ request, params }) {
     console.error(e);
   }
 
-  return redirect(`/${userId}/articles`);
+  return redirect(`/sec/${userId}/articles`);
 }
 
 export async function loader({ params }) {

@@ -8,18 +8,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeIcon from '@mui/icons-material/Home';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useFetcher } from 'react-router-dom';
 
-import {
-  selectCredentials,
-  removeCredentials,
-} from '../../features/auth/authSlice.js';
+import { selectCredentials } from '../../features/auth/authSlice.js';
 
 const UserMenu = () => {
   const fetcher = useFetcher();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [menuAnchor, setMenuAnchor] = useState(null);
   const { name, id: userId } = useSelector(selectCredentials);
 
@@ -65,7 +61,7 @@ const UserMenu = () => {
       >
         <MenuItem
           onClick={() => {
-            navigate(`/${userId}/articles`);
+            navigate(`/sec/${userId}/articles`);
             setMenuAnchor(null);
           }}
         >
@@ -75,12 +71,9 @@ const UserMenu = () => {
           <ListItemText>Meus Artigos</ListItemText>
         </MenuItem>
         <MenuItem
-          onClick={() => {
-            fetcher.submit(null, {
-              method: 'get',
-              action: '',
-            });
-            // dispatch(removeCredentials());
+          onClick={(event) => {
+            event.preventDefault();
+            fetcher.submit(null, { method: 'post', action: '/sec' });
             setMenuAnchor(null);
           }}
         >

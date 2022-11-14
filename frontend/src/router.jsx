@@ -1,9 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Layout, {
-  loader as layoutLoader,
-  action as layoutAction,
-} from './routes/Layout.jsx';
+import Layout, { loader as layoutLoader } from './routes/Layout.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Index from './routes/Index.jsx';
 import Login, { action as loginAction } from './routes/Login.jsx';
@@ -22,7 +19,9 @@ import PublicArticles, {
 import Reader, { loader as readerLoader } from './routes/Reader.jsx';
 import { action as deleteArticleAction } from './routes/DeleteArticle.js';
 import { action as createArticleAction } from './routes/CreateArticle.js';
-import RequireAuth from './routes/RequireAuth.jsx';
+import RequireAuth, {
+  action as requireAuthAction,
+} from './routes/RequireAuth.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -30,12 +29,11 @@ export const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     loader: layoutLoader,
-    action: layoutAction,
     children: [
       {
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Index />, action: layoutAction },
+          { index: true, element: <Index /> },
           {
             path: 'auth/login',
             element: <Login />,
@@ -57,10 +55,10 @@ export const router = createBrowserRouter([
             loader: readerLoader,
           },
           {
-            path: '/',
+            path: 'sec',
             element: <RequireAuth />,
             errorElement: <ErrorPage />,
-            action: layoutAction,
+            action: requireAuthAction,
             children: [
               {
                 path: ':userId/articles',

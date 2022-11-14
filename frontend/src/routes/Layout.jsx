@@ -13,6 +13,8 @@ import {
   resolvePath,
   useLocation,
   useLoaderData,
+  useNavigation,
+  Navigate,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,6 +22,7 @@ import UserMenu from '../components/LayoutRoute/UserMenu.jsx';
 import {
   selectCredentials,
   setCredentials,
+  removeCredentials,
 } from '../features/auth/authSlice.js';
 import { apiAxios } from '../app/apiAxios.js';
 
@@ -45,11 +48,21 @@ const Layout = () => {
     () => loaderData?.status === 200 && !isLoggedIn,
     [isLoggedIn, loaderData?.status],
   );
+  const logout = useMemo(
+    () => loaderData?.status !== 200 && isLoggedIn,
+    [isLoggedIn, loaderData?.status],
+  );
+  const { state } = useNavigation();
   const upSm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
   useEffect(() => {
     if (loading) dispatch(setCredentials(loaderData.data?.userInfo));
-  }, [dispatch, loaderData.data?.userInfo, loading]);
+    if (logout) dispatch(removeCredentials());
+  }, [dispatch, loaderData.data?.userInfo, loading, logout]);
+
+  // ===================== JSX =====================
+
+  if (logout) return <Navigate to='/auth/login' replace />;
 
   const unauthenticated = (
     <>
@@ -96,7 +109,7 @@ const Layout = () => {
           ...theme.mixins.toolbar,
         })}
       />
-      {loading ? (
+      {loading || state === 'loading' ? (
         <Backdrop
           open={true}
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -121,20 +134,7 @@ export async function loader() {
     data.status = e.response?.status;
   }
 
-  console.log('loader layout');
-
   return data;
-}
-
-export async function action() {
-  console.log('action layout');
-  try {
-    const response = await apiAxios.get('/auth/logout');
-  } catch (e) {
-    console.log(e);
-  }
-
-  return { ok: true };
 }
 
 export default Layout;

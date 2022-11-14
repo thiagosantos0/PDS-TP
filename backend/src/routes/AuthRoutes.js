@@ -8,6 +8,6 @@ router.get(
   authController.isLoggedIn,
   authController.getAuthStatus
 );
-router.get("/logout", authController.isLoggedIn, authController.logout);
+router.get("/logout", authController.logout);
 
 module.exports.auth = router;
