@@ -71,9 +71,8 @@ module.exports = {
   },
   logout: async (req, res) => {
     try {
-       res.clearCookie('jwt');
-       res.status(StatusCodes.OK).end();
-      return res.json(req.user);
+      res.clearCookie("jwt");
+      res.status(StatusCodes.OK).end();
     } catch (error) {
       return res
         .status(

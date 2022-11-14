@@ -3,15 +3,24 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import { redirect, useFetcher, useLoaderData } from 'react-router-dom';
+import {
+  redirect,
+  useFetcher,
+  useLoaderData,
+  useParams,
+  Navigate,
+} from 'react-router-dom';
 
 import RemirrorEditor from '../components/EditorRoute/RemirrorEditor.jsx';
 import { apiAxios } from '../app/apiAxios.js';
 
 const Editor = () => {
+  const { userId } = useParams();
   const editorRef = useRef();
   const fetcher = useFetcher();
   const loaderData = useLoaderData();
+
+  if (loaderData.status !== 200) return <Navigate to={`/${userId}/articles`} />;
 
   return (
     <Container maxWidth='md'>
@@ -44,7 +53,7 @@ const Editor = () => {
             Publish
           </Button>
         </Toolbar>
-        <RemirrorEditor ref={editorRef} initialContent={loaderData} />
+        <RemirrorEditor ref={editorRef} initialContent={loaderData.content} />
       </Box>
     </Container>
   );
@@ -67,18 +76,20 @@ export async function action({ request, params }) {
 
 export async function loader({ params }) {
   const { docId } = params;
-  let content;
+  let data = {};
   try {
     const response = await apiAxios.get(`/article/get-article/${docId}`);
-    content = response.data.article?.content;
+    data.content = response.data.article?.content;
+    data.status = response.status;
     // Retirar depois
-    if (content === 'article content') content = undefined;
-    if (content === '') content = undefined;
+    if (data.content === 'article content') data.content = undefined;
+    if (data.content === '') data.content = undefined;
   } catch (e) {
+    data.status = e.response.status;
     console.error(e);
   }
 
-  return content;
+  return data;
 }
 
 export default Editor;

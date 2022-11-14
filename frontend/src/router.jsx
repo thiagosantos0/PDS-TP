@@ -1,6 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Layout, { loader as layoutLoader } from './routes/Layout.jsx';
+import Layout, {
+  loader as layoutLoader,
+  action as layoutAction,
+} from './routes/Layout.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Index from './routes/Index.jsx';
 import Login, { action as loginAction } from './routes/Login.jsx';
@@ -27,11 +30,12 @@ export const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     loader: layoutLoader,
+    action: layoutAction,
     children: [
       {
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Index /> },
+          { index: true, element: <Index />, action: layoutAction },
           {
             path: 'auth/login',
             element: <Login />,
@@ -56,6 +60,7 @@ export const router = createBrowserRouter([
             path: '/',
             element: <RequireAuth />,
             errorElement: <ErrorPage />,
+            action: layoutAction,
             children: [
               {
                 path: ':userId/articles',

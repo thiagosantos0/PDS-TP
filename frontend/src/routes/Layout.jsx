@@ -6,6 +6,7 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   matchPath,
   Outlet,
@@ -15,11 +16,11 @@ import {
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import UserMenu from '../components/LayoutRoute/UserMenu.jsx';
 import {
   selectCredentials,
   setCredentials,
 } from '../features/auth/authSlice.js';
-
 import { apiAxios } from '../app/apiAxios.js';
 
 const useFindMatch = (paths = {}) => {
@@ -37,17 +38,18 @@ const useFindMatch = (paths = {}) => {
 
 const Layout = () => {
   const loaderData = useLoaderData();
-  const credentials = useSelector((state) => selectCredentials(state));
+  const { isLoggedIn } = useSelector((state) => selectCredentials(state));
   const dispatch = useDispatch();
   const { name: matchName } = useFindMatch({ auth: '/auth/*' });
   const loading = useMemo(
-    () => loaderData?.status === 200 && !credentials.isLoggedIn,
-    [credentials.isLoggedIn, loaderData?.status],
+    () => loaderData?.status === 200 && !isLoggedIn,
+    [isLoggedIn, loaderData?.status],
   );
+  const upSm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
   useEffect(() => {
-    if (loading) dispatch(setCredentials(loaderData.data.userInfo));
-  }, [dispatch, loaderData.data.userInfo, loading]);
+    if (loading) dispatch(setCredentials(loaderData.data?.userInfo));
+  }, [dispatch, loaderData.data?.userInfo, loading]);
 
   const unauthenticated = (
     <>
@@ -70,30 +72,19 @@ const Layout = () => {
     </>
   );
 
-  const authenticated = <Box>{credentials.name}</Box>;
-
-  const authNavigation = credentials.isLoggedIn
-    ? authenticated
-    : unauthenticated;
+  const authNavigation = isLoggedIn ? <UserMenu /> : unauthenticated;
 
   return (
     <Box>
       <AppBar component='nav'>
-        <Toolbar
-          variant='dense'
-          sx={{
-            flexDirection: { xs: 'row-reverse', sm: 'row' },
-            justifyContent: 'space-between',
-          }}
-        >
+        <Toolbar variant='dense' sx={{ justifyContent: 'space-between' }}>
           <Link
             href='/'
             variant='h5'
             underline='none'
-            display={{ xs: 'none', sm: 'block' }}
             sx={{ color: '#fff', cursor: 'pointer' }}
           >
-            CompArtigos
+            {upSm ? 'CompArtigos' : 'CA'}
           </Link>
           <Box sx={{ display: 'flex', gap: '1rem' }}>
             {matchName !== 'auth' && authNavigation}
@@ -127,10 +118,23 @@ export async function loader() {
     data.status = response.status;
   } catch (e) {
     console.error(e);
-    data.status = e.response.status;
+    data.status = e.response?.status;
   }
 
+  console.log('loader layout');
+
   return data;
+}
+
+export async function action() {
+  console.log('action layout');
+  try {
+    const response = await apiAxios.get('/auth/logout');
+  } catch (e) {
+    console.log(e);
+  }
+
+  return { ok: true };
 }
 
 export default Layout;

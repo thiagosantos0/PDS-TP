@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, Navigate } from 'react-router-dom';
 
 import RemirrorReader from '../components/ReaderRoute/RemirrorReader.jsx';
 import { apiAxios } from '../app/apiAxios.js';
@@ -7,27 +7,31 @@ import { apiAxios } from '../app/apiAxios.js';
 const Reader = () => {
   const loaderData = useLoaderData();
 
+  if (loaderData.status !== 200) return <Navigate to='/articles' />;
+
   return (
     <Container maxWidth='md'>
-      <RemirrorReader initialContent={loaderData} />
+      <RemirrorReader initialContent={loaderData.content} />
     </Container>
   );
 };
 
 export async function loader({ params }) {
   const { docId } = params;
-  let content;
+  let data = {};
   try {
     const response = await apiAxios.get(`/article/get-article/${docId}`);
-    content = response.data.article?.content;
+    data.content = response.data.article?.content;
+    data.status = response.status;
     // Retirar depois
-    if (content === 'article content') content = undefined;
-    if (content === '') content = undefined;
+    if (data.content === 'article content') data.content = undefined;
+    if (data.content === '') data.content = undefined;
   } catch (e) {
+    data.status = e.response.status;
     console.error(e);
   }
 
-  return content;
+  return data;
 }
 
 export default Reader;

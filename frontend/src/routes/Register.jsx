@@ -10,26 +10,19 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { Form, useActionData, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { apiAxios } from '../app/apiAxios.js';
-import {
-  setCredentials,
-  selectCredentials,
-} from '../features/auth/authSlice.js';
 
 const MuiForm = styled(Form)({});
 
 const Register = () => {
-  const dispatch = useDispatch();
-  const credentials = useSelector(selectCredentials);
   const actionData = useActionData();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (actionData) dispatch(setCredentials(actionData.newUser));
-    if (credentials.isLoggedIn) navigate(`/${credentials.id}/articles`);
-  }, [actionData, credentials, dispatch, navigate]);
+    console.log(actionData);
+    if (actionData?.status === 200) navigate('/auth/login');
+  }, [actionData, navigate]);
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -66,6 +59,8 @@ const Register = () => {
             name='email'
             label='Email'
             autoComplete='email'
+            error={actionData?.status === 409}
+            helperText={actionData?.status === 409 && 'Usuário já cadastrado'}
           />
           <TextField
             margin='normal'
@@ -101,7 +96,17 @@ const Register = () => {
 export async function action({ request }) {
   const formData = await request.formData();
   const authData = Object.fromEntries(formData);
-  const { data } = await apiAxios.post('/auth/signup', authData);
+  let data = {};
+  try {
+    const response = await apiAxios.post('/auth/signup', authData);
+    data.data = response.data;
+    data.status = response.status;
+  } catch (e) {
+    data.error = e.response?.data;
+    data.status = e.response?.status;
+    console.error(e);
+  }
+
   return data;
 }
 

@@ -28,7 +28,7 @@ const Login = () => {
 
   useEffect(() => {
     if (actionData?.status === 200) {
-      dispatch(setCredentials(actionData.data.userInfo));
+      dispatch(setCredentials(actionData?.data.userInfo));
     }
     if (credentials.isLoggedIn) navigate(`/${credentials.id}/articles`);
   }, [actionData, credentials, dispatch, navigate]);
@@ -104,8 +104,8 @@ export async function action({ request }) {
     data.data = response.data;
     data.status = response.status;
   } catch (e) {
-    data.error = e.response.data;
-    data.status = e.response.status;
+    data.error = e.response?.data;
+    data.status = e.response?.status;
   }
 
   return data;
