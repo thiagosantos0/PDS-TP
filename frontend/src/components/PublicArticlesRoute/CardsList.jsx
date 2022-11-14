@@ -13,14 +13,23 @@ const CardsList = ({ articles }) => {
       }}
     >
       {articles.map(
-        ({ id: docId, userId, image, name, description, updatedAt }) => (
+        ({
+          id: docId,
+          userId,
+          userName,
+          image,
+          title,
+          description,
+          updatedAt,
+        }) => (
           <CardItem
             docId={docId}
             userId={userId}
             image={image}
-            name={name}
+            name={title}
             description={description}
             updatedAt={updatedAt}
+            userName={userName}
             key={docId}
           />
         ),

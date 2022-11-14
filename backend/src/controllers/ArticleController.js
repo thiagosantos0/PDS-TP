@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { articleService } = require("../services");
+const { articleService, userService } = require("../services");
 
 module.exports = {
   create: async (req, res) => {
@@ -27,8 +27,15 @@ module.exports = {
   getAllArticles: async (req, res) => {
     try {
       const getAllResponse = await articleService.getAllArticles();
+      const allWithUserName = await Promise.all(
+        getAllResponse.articles.map(async (article) => {
+          const { user } = await userService.getUser(article.userId);
+          article.userName = user.name;
+          return article;
+        })
+      );
 
-      return res.status(StatusCodes.OK).json(getAllResponse);
+      return res.status(StatusCodes.OK).json({ articles: allWithUserName });
     } catch (error) {
       console.error(error);
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error.message);
@@ -39,7 +46,15 @@ module.exports = {
     try {
       const getResponse = await articleService.getArticleByUser(req.params.id);
 
-      return res.status(StatusCodes.OK).json(getResponse);
+      const allWithUserName = await Promise.all(
+        getResponse.articles.map(async (article) => {
+          const { user } = await userService.getUser(article.userId);
+          article.userName = user.name;
+          return article;
+        })
+      );
+
+      return res.status(StatusCodes.OK).json(allWithUserName);
     } catch (error) {
       console.error(error);
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error.message);

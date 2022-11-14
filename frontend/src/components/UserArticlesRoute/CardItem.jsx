@@ -26,8 +26,10 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
   const dispatch = useDispatch();
 
   const date = useMemo(() => {
-    const current = new Date(updatedAt);
-    const pattern = isToday(current) ? 'p' : 'PPP';
+    let regex = /\s+([+])/g;
+    const fixed = updatedAt.replace(regex, '$1');
+    const current = new Date(fixed);
+    const pattern = isToday(current) ? 'p' : 'PP';
     return format(current, pattern, { locale: ptBR });
   }, [updatedAt]);
 

@@ -22,6 +22,9 @@ import { action as createArticleAction } from './routes/CreateArticle.js';
 import RequireAuth, {
   action as requireAuthAction,
 } from './routes/RequireAuth.jsx';
+import PublicArticlesByUser, {
+  loader as publicArticlesByUserLoader,
+} from './routes/PublicArticlesByUser.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +51,11 @@ export const router = createBrowserRouter([
             path: 'articles',
             element: <PublicArticles />,
             loader: publicArticlesLoader,
+          },
+          {
+            path: 'articles/:userId',
+            element: <PublicArticlesByUser />,
+            loader: publicArticlesByUserLoader,
           },
           {
             path: ':userId/:docId/reader',

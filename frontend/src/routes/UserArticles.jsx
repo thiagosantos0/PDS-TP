@@ -76,7 +76,7 @@ export async function action({ request }) {
   formData.append('title', titleValue);
 
   const data = Object.fromEntries(formData);
-  console.log(data)
+  console.log(data);
   await apiAxios.put(`/article/update-article/${formData.get('docId')}`, data);
   return { ok: true };
 }
@@ -85,7 +85,7 @@ export async function loader({ params }) {
   const { data } = await apiAxios.get(
     `/article/get-articles-by-user/${params.userId}`,
   );
-  return data.articles;
+  return data;
 }
 
 export default UserArticles;
