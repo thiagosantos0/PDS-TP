@@ -26,6 +26,7 @@ module.exports = {
       return res
         .cookie("jwt", token, {
           httpOnly: true,
+          maxAge: 7 * 24 * 60 * 60 * 1000,
         })
         .json(userInfo);
     } catch (error) {
@@ -46,6 +47,19 @@ module.exports = {
       next();
     } catch (error) {
       console.error(error);
+      return res
+        .status(
+          error.name === "ValidationError"
+            ? StatusCodes.UNPROCESSABLE_ENTITY
+            : error.status || StatusCodes.INTERNAL_SERVER_ERROR
+        )
+        .json(error.message);
+    }
+  },
+  getAuthStatus: async (req, res) => {
+    try {
+      return res.json(req.user);
+    } catch (error) {
       return res
         .status(
           error.name === "ValidationError"

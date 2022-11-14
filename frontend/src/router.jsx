@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Layout from './routes/Layout.jsx';
+import Layout, { loader as layoutLoader } from './routes/Layout.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Index from './routes/Index.jsx';
 import Login, { action as loginAction } from './routes/Login.jsx';
@@ -26,6 +26,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     errorElement: <ErrorPage />,
+    loader: layoutLoader,
     children: [
       {
         errorElement: <ErrorPage />,
