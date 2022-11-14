@@ -76,6 +76,7 @@ export async function action({ request }) {
   formData.append('title', titleValue);
 
   const data = Object.fromEntries(formData);
+  console.log(data)
   await apiAxios.put(`/article/update-article/${formData.get('docId')}`, data);
   return { ok: true };
 }
