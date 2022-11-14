@@ -4,7 +4,7 @@ const db = require("../models")
 module.exports = {
     buildDB: async () => {
         await db.sequelize.models.Article.sync({ force: true });
-        await db.sequelize.models.User.sync();
+        await db.sequelize.models.User.sync({ force: true });
         //Definindo os autores (Test)
 
         try {
