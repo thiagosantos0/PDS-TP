@@ -69,19 +69,21 @@ const UserArticles = () => {
 
 export async function action({ request }) {
   const formData = await request.formData();
-  
-  //Mudando o campo de "name" -> "title"
-  const titleValue = formData.get("name");
-  formData.delete("name");
-  formData.append("title", titleValue);
+
+  // Mudando o campo de "name" -> "title"
+  const titleValue = formData.get('name');
+  formData.delete('name');
+  formData.append('title', titleValue);
 
   const data = Object.fromEntries(formData);
-  await apiAxios.put(`/article/update-article/${formData.get("docId")}`, data); 
+  await apiAxios.put(`/article/update-article/${formData.get('docId')}`, data);
   return { ok: true };
 }
 
 export async function loader({ params }) {
-  const { data } = await apiAxios.get(`/article/get-articles-by-user/${params.userId}`);
+  const { data } = await apiAxios.get(
+    `/article/get-articles-by-user/${params.userId}`,
+  );
   return data.articles;
 }
 
