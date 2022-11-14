@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
             image: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            isPublic: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: true,
             }
         },
         {

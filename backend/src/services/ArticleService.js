@@ -48,7 +48,9 @@ module.exports = {
     
     getAllArticles: async () => {
         // verify
-        const articles = await articleRepository.getAll();
+        let query = {};
+        query.isPublic = true;
+        const articles = await articleRepository.getAllByField(query);
         
         return { articles };      
     },
