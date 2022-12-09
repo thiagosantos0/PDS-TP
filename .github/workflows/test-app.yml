@@ -29,5 +29,5 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           project: ./frontend
-          start: npm run dev --prefix frontend
+          start: npm run dev
           wait-on: 'http://localhost:5173'
