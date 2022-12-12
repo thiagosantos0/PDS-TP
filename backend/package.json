@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -L src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "test:start": "node src/app.js",
     "test:reset": "TEST_DB=truncate node src/utils/test_db.js",
     "test:addusers": "TEST_DB=addusers node src/utils/test_db.js",
