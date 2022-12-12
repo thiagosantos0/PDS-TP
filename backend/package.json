@@ -7,10 +7,10 @@
     "dev": "nodemon -L src/app.js",
     "test": "jest",
     "test:start": "node src/app.js",
-    "test:reset": "set:TEST_DB=truncate node src/utils/test_db.js",
-    "test:addusers": "set:TEST_DB=addusers node src/utils/test_db.js",
-    "test:addarticles": "set:TEST_DB=addarticles node src/utils/test_db.js",
-    "test:addcontent": "set:TEST_DB=addcontent node src/utils/test_db.js"
+    "test:reset": "TEST_DB=truncate node src/utils/test_db.js",
+    "test:addusers": "TEST_DB=addusers node src/utils/test_db.js",
+    "test:addarticles": "TEST_DB=addarticles node src/utils/test_db.js",
+    "test:addcontent": "TEST_DB=addcontent node src/utils/test_db.js"
   },
   "repository": {
     "type": "git",
