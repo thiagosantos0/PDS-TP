@@ -49,6 +49,7 @@ const EditMetadataModal = () => {
             maxRows={4}
             required
             defaultValue={modal.data.name}
+            data-cy='name'
           />
           <TextField
             autoFocus
@@ -60,6 +61,7 @@ const EditMetadataModal = () => {
             maxRows={4}
             required
             defaultValue={modal.data.image}
+            data-cy='image'
           />
           <TextField
             autoFocus
@@ -71,6 +73,7 @@ const EditMetadataModal = () => {
             maxRows={4}
             required
             defaultValue={modal.data.description}
+            data-cy='description'
           />
         </DialogContent>
         <DialogActions>
@@ -78,11 +81,13 @@ const EditMetadataModal = () => {
             type='button'
             variant='outlined'
             autoFocus
-            onClick={() => {dispatch(closeModal())}}
+            onClick={() => {
+              dispatch(closeModal());
+            }}
           >
             Cancelar
           </Button>
-          <Button type='submit' variant='contained'>
+          <Button type='submit' variant='contained' data-cy='submit-btn'>
             Enviar
           </Button>
         </DialogActions>

@@ -71,7 +71,7 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
   };
 
   return (
-    <Box>
+    <Box data-cy='card-item'>
       <Card
         variant='outlined'
         onClick={() => navigate(`/${userId}/${docId}/reader`)}
@@ -97,7 +97,11 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
         />
         <CardHeader
           action={
-            <IconButton aria-label='settings' onClick={handleOpenMenu}>
+            <IconButton
+              aria-label='settings'
+              onClick={handleOpenMenu}
+              data-cy='card-item-menu-btn'
+            >
               <MoreVertIcon />
             </IconButton>
           }
@@ -137,7 +141,9 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
           <ListItemIcon>
             <OpenInNewIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText>Editar Conteúdo</ListItemText>
+          <ListItemText data-cy='card-item-content-btn'>
+            Editar Conteúdo
+          </ListItemText>
         </MenuItem>
         <MenuItem onClick={handleEditMetadata}>
           <ListItemIcon>
@@ -149,7 +155,10 @@ const CardItem = ({ docId, image, name, description, updatedAt }) => {
           <ListItemIcon>
             <DeleteOutlineIcon fontSize='small' color='error' />
           </ListItemIcon>
-          <ListItemText primaryTypographyProps={{ color: 'error' }}>
+          <ListItemText
+            primaryTypographyProps={{ color: 'error' }}
+            data-cy='card-item-delete-btn'
+          >
             Apagar
           </ListItemText>
         </MenuItem>

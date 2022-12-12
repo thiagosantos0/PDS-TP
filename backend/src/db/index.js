@@ -81,14 +81,5 @@ module.exports = {
       console.log("falha criando artigo 4 " + error);
     }
   },
-  truncateDB: async () => {
-    await db.sequelize.models.Article.destroy({ truncate: true });
-    await db.sequelize.models.User.destroy({ truncate: true });
-    // await db.sequelize.models.Article.sync({ force: true });
-    // await db.sequelize.models.User.sync({ force: true });
-  },
-};
 
-if (process.env.NODE_ENV === "test") {
-  module.exports.truncateDB().catch(console.error);
 }

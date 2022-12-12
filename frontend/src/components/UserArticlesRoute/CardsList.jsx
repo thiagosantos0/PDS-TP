@@ -13,6 +13,7 @@ const CardsList = ({ articles }) => {
         gap: '1rem',
         gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
       }}
+      data-cy='cads-list'
     >
       {articles.map(({ id: docId, image, title, description, updatedAt }) => (
         <CardItem

@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "nodemon -L src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:start": "NODE_ENV=test node src/app.js",
-    "test:reset": "NODE_ENV=test node src/db/index.js"
+    "test:start": "node src/app.js",
+    "test:reset": "TEST_DB=truncate node src/utils/test_db.js",
+    "test:adduser": "TEST_DB=adduser node src/utils/test_db.js",
+    "test:addarticles": "TEST_DB=addarticles node src/utils/test_db.js",
+    "test:addcontent": "TEST_DB=addcontent node src/utils/test_db.js"
   },
   "repository": {
     "type": "git",

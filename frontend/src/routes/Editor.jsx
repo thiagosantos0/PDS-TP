@@ -50,6 +50,7 @@ const Editor = () => {
                 boxShadow: 'none',
               },
             }}
+            data-cy='publish-btn'
           >
             Publish
           </Button>

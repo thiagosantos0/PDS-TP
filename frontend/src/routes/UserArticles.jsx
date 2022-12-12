@@ -60,6 +60,7 @@ const UserArticles = () => {
             right: theme.spacing(6),
           },
         })}
+        data-cy='add-btn'
       >
         <AddIcon />
       </Fab>

@@ -1,4 +1,4 @@
-describe('Home button', () => {
+describe('Register and Login', () => {
   beforeEach(() => {
     // reset the database prior to every test
     cy.exec('npm run test:reset --prefix ../backend');
@@ -28,5 +28,22 @@ describe('Home button', () => {
     cy.get('[data-cy=submit-btn]').click();
 
     cy.location('pathname').should('eq', '/auth/login');
+
+    cy.get('[data-cy=email]')
+        .find('#email')
+        .type('test@email.com')
+        .should('have.value', 'test@email.com');
+
+    cy.get('[data-cy=password]')
+        .find('#password')
+        .type('12345678')
+        .should('have.value', '12345678');
+
+    cy.get('[data-cy=submit-btn]').click();
+
+    cy.location('pathname').then(pathname => Cypress.minimatch( pathname, '/sec/**/articles', {
+      matchBase: false,
+    }))
+
   });
 });

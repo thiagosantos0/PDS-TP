@@ -61,6 +61,7 @@ const Login = () => {
             autoFocus
             error={actionData?.status === 404}
             helperText={actionData?.status === 404 && 'Usuário não cadastrado'}
+            data-cy='email'
           />
           <TextField
             margin='normal'
@@ -73,12 +74,14 @@ const Login = () => {
             autoComplete='current-password'
             error={actionData?.status === 401}
             helperText={actionData?.status === 401 && 'Senha Incorreta'}
+            data-cy='password'
           />
           <Button
             type='submit'
             fullWidth
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
+            data-cy='submit-btn'
           >
             Entrar
           </Button>

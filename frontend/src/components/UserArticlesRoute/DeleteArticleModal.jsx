@@ -48,7 +48,11 @@ const DeleteArticleModal = () => {
           >
             Cancelar
           </Button>
-          <Button type='submit' variant='contained'>
+          <Button
+            type='submit'
+            variant='contained'
+            data-cy='delete-modal-submit-btn'
+          >
             Deletar
           </Button>
         </DialogActions>
