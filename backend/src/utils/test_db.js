@@ -8,10 +8,16 @@ const truncateDB = async () => {
   await db.sequelize.models.User.sync({ force: true });
 };
 
-const createUser = async () => {
+const createUsers = async () => {
   await authService.signup({
     name: "Kobayashi",
     email: "test@email.com",
+    password: "12345678",
+  });
+
+  await authService.signup({
+    name: "Test",
+    email: "test@test.com",
     password: "12345678",
   });
 };
@@ -44,6 +50,15 @@ const createArticles = async () => {
     image:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png",
     userId: 1,
+  });
+
+  await articleService.createArticle({
+    title: "React Article",
+    description:
+      "Suspendisse varius odio eget posuere auctor. Aenean nec purus ipsum. Integer orci tellus, blandit et mauris id, efficitur ornare nunc. Nulla et ex vel odio aliquet tempus. Sed tortor metus, viverra ac enim sit amet, dignissim efficitur tellus.",
+    content: "article content",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+    userId: 2,
   });
 };
 
@@ -78,8 +93,8 @@ switch (process.env.TEST_DB) {
   case "truncate":
     truncateDB().catch(console.error);
     break;
-  case "adduser":
-    createUser().catch(console.error);
+  case "addusers":
+    createUsers().catch(console.error);
     break;
   case "addarticles":
     createArticles().catch(console.error);

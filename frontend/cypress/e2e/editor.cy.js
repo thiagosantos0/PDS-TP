@@ -1,7 +1,7 @@
-describe('Create and Delete articles', () => {
+describe('Edit and read editor content', () => {
   beforeEach(() => {
     cy.exec('npm run test:reset --prefix ../backend');
-    cy.exec('npm run test:adduser --prefix ../backend');
+    cy.exec('npm run test:addusers --prefix ../backend');
     cy.visit('/auth/login');
     cy.get('[data-cy=email]').find('#email').type('test@email.com');
     cy.get('[data-cy=password]').find('#password').type('12345678');

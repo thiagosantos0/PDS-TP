@@ -10,6 +10,7 @@ import { ptBR } from 'date-fns/locale';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import { useFindSpecificMatch } from '../../hooks/findMatch.js';
 
 const CardItem = ({
   userId,
@@ -20,6 +21,9 @@ const CardItem = ({
   updatedAt,
   userName,
 }) => {
+  const { name: matchName } = useFindSpecificMatch({
+    singleUser: '/articles',
+  });
   const navigate = useNavigate();
   const date = useMemo(() => {
     let regex = /\s+([+])/g;
@@ -40,6 +44,7 @@ const CardItem = ({
           cursor: 'pointer',
         },
       })}
+      data-cy='card-item'
     >
       <Box sx={{ flex: 1, display: 'flex', height: '100%' }}>
         <CardMedia
@@ -88,29 +93,32 @@ const CardItem = ({
               {description}
             </Typography>
             <CardActions sx={{ alignSelf: 'flex-end' }}>
-              <Button
-                size='large'
-                variant='text'
-                color='inherit'
-                startIcon={
-                  <Avatar
-                    sx={{
-                      width: 30,
-                      height: 30,
-                      bgcolor: 'secondary.main',
-                    }}
-                  >
-                    {userName.toUpperCase().charAt(0)}
-                  </Avatar>
-                }
-                onClick={(event) => {
-                  event.stopPropagation();
-                  navigate(`/articles/${userId}`);
-                }}
-                sx={{ textTransform: 'none' }}
-              >
-                {userName}
-              </Button>
+              {matchName === 'singleUser' && (
+                <Button
+                  size='large'
+                  variant='text'
+                  color='inherit'
+                  startIcon={
+                    <Avatar
+                      sx={{
+                        width: 30,
+                        height: 30,
+                        bgcolor: 'secondary.main',
+                      }}
+                    >
+                      {userName.toUpperCase().charAt(0)}
+                    </Avatar>
+                  }
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    navigate(`/articles/${userId}`);
+                  }}
+                  sx={{ textTransform: 'none' }}
+                  data-cy='card-item-user-btn'
+                >
+                  {userName}
+                </Button>
+              )}
             </CardActions>
           </Box>
           <Box

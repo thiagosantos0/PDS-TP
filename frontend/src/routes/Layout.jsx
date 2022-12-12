@@ -24,20 +24,8 @@ import {
   setCredentials,
   removeCredentials,
 } from '../features/auth/authSlice.js';
+import { useFindMatch } from '../hooks/findMatch.js';
 import { apiAxios } from '../app/apiAxios.js';
-
-const useFindMatch = (paths = {}) => {
-  const location = useLocation();
-  const foundMatch = Object.entries(paths).find(([, path]) => {
-    const resolved = resolvePath(path);
-    const match = matchPath({ path: resolved.pathname }, location.pathname);
-    return Boolean(match);
-  });
-
-  return foundMatch
-    ? { match: true, name: foundMatch[0], path: foundMatch[1] }
-    : { match: false };
-};
 
 const Layout = () => {
   const loaderData = useLoaderData();

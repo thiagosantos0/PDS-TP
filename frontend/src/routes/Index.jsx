@@ -55,6 +55,7 @@ const Index = () => {
           variant='contained'
           endIcon={<ArrowForwardIosIcon />}
           href='/articles'
+          data-cy='visit-articles-btn'
         >
           Visitar Artigos
         </Button>
