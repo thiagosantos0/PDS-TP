@@ -22,12 +22,16 @@ jobs:
       - name: Install wait-on
         run: npm install -g wait-on
 
+#      - name: Install yarn
+#        run: npm install -g yarn
+
       - name: Run backend server
         run: npm run dev --prefix backend & npx wait-on http://localhost:3000
 
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: npm run dev
+          start: yarn dev
           wait-on: 'http://localhost:5173'
           working-directory: frontend
+          install-command: yarn --frozen-lockfile --silent
