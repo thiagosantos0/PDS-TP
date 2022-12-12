@@ -28,9 +28,6 @@ jobs:
       - name: Run backend server
         run: npm run test:start --prefix backend & npx wait-on http://localhost:3000
 
-      - name: Integration tests
-        run: npm run test --prefix backend
-
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
