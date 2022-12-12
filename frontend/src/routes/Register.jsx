@@ -50,6 +50,7 @@ const Register = () => {
             type='text'
             autoComplete='name'
             autoFocus
+            data-cy='name'
           />
           <TextField
             margin='normal'
@@ -61,6 +62,7 @@ const Register = () => {
             autoComplete='email'
             error={actionData?.status === 409}
             helperText={actionData?.status === 409 && 'Usuário já cadastrado'}
+            data-cy='email'
           />
           <TextField
             margin='normal'
@@ -71,12 +73,14 @@ const Register = () => {
             label='Senha'
             type='password'
             autoComplete='current-password'
+            data-cy='password'
           />
           <Button
             type='submit'
             fullWidth
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
+            data-cy='submit-btn'
           >
             Cadastrar
           </Button>

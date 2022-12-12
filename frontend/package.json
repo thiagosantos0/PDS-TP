@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.jsx",
     "preview": "vite preview",
     "test": "cypress run",
-    "cypress:open": "cypress open"
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

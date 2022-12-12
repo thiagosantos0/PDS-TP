@@ -66,7 +66,11 @@ const Layout = () => {
 
   const unauthenticated = (
     <>
-      <Button href='/auth/register' sx={{ color: '#fff' }}>
+      <Button
+        href='/auth/register'
+        sx={{ color: '#fff' }}
+        data-cy='register-btn'
+      >
         Cadastrar
       </Button>
       <Button
@@ -79,6 +83,7 @@ const Layout = () => {
             boxShadow: 'none',
           },
         }}
+        data-cy='login-btn'
       >
         Entrar
       </Button>

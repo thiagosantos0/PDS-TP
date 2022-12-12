@@ -1,4 +1,3 @@
-const fs = require("fs");
 const Sequelize = require("sequelize");
 
 const db = {};
@@ -23,7 +22,6 @@ sequelize.sync();
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
-    console.log("aqui chega");
     db[modelName].associate(db);
   }
 });
